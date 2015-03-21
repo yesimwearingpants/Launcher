@@ -1,0 +1,10 @@
+bin/
+build/classes/
+build/dependency-cache/
+build/resources/
+build/tmp/
+.settings/
+.Terracraft/
+.classpath
+.project
+.gradle/
