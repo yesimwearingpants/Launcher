@@ -10,14 +10,15 @@ import java.util.List;
 
 import com.sww.launcher.variables.Reference;
 
+@SuppressWarnings("serial")
 public class Window extends Gui {
     
-	private static final long serialVersionUID = -5255119516283869295L;
 	private static int defaultCloseOperation = EXIT_ON_CLOSE;
 	
 	private static String name;
 	private static String location;
 	private static String version;
+	private static Boolean bool = Boolean.FALSE;
 	
 	public void init() {
 		setLayouts();
@@ -110,25 +111,25 @@ public class Window extends Gui {
 		protected static void newProfileButtonAction(ActionEvent e) {
 			if(profileNameField != null) {
 				name = profileNameField.getText();
-				if(locationField == null) {
-					// Default Save Location
-					location = Reference.SaveLocation;
-				} else {
+				if(locationField != null) {
 					location = locationField.getText();
 					Reference.SaveLocation = location;
+				} else {
+					// Default Save Location
+					location = Reference.SaveLocation;
 				}
 				version = selectionBox.getSelectedItem().toString();
 			} else {
 				return;
 			}
 			
-			Reference.TableList.add(name);
-			Reference.TableList.add(version);
-			Reference.TableList.add(location);
-			Reference.TableList.add(false);
-			List<Object> list = new ArrayList<Object>(Reference.TableList);
-			Reference.TableList.clear();
+			List<Object> list = new ArrayList<Object>();
+			list.add(name);
+			list.add(version);
+			list.add(location);
+			list.add(bool);
 			Reference.TableListofLists.add(list);
+			model.fireTableStructureChanged();
 		}
 
 		

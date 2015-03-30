@@ -9,19 +9,16 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.io.PrintStream;
 
-import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
-import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 
 import org.jdesktop.swingx.JXComboBox;
@@ -30,12 +27,20 @@ import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.combobox.ListComboBoxModel;
 
 import com.sww.launcher.elements.Console;
-import com.sww.launcher.elements.JLoginPanel;
+import com.sww.launcher.elements.ListTableModel;
+import com.sww.launcher.login.Login;
+import com.sww.launcher.login.Password;
+import com.sww.launcher.login.User;
 import com.sww.launcher.variables.Reference;
 
 class Gui extends JFrame {
 	
 	private static final long serialVersionUID = -8477483526358458395L;
+
+	private static final Login Login = new Login();
+	private static final Password Password = new Password();
+	private static final User User = new User();
+	
 
 	private JPanel spacer0 = new JPanel(null);
 	private JPanel spacer1 = new JPanel(null);
@@ -49,11 +54,11 @@ class Gui extends JFrame {
 	private JXPanel panel0 = new JXPanel();
 	private JXPanel mainTab = new JXPanel();
 	private JXPanel versionsTab = new JXPanel();
-	private JXPanel profilesTab = new JXPanel();
 	private JXPanel newsTab = new JXPanel();
 	private JXPanel profileTab = new JXPanel();
 	private JXPanel consoleTab = new JXPanel();
-	private JLoginPanel loginTab = new JLoginPanel();
+	//Fixx this Next
+	//private JLoginPanel loginTab = new JLoginPanel(Login, Password, User);
 	private JLabel profile = new JLabel();
 	private JLabel version = new JLabel();
 	private JLabel username = new JLabel();
@@ -71,8 +76,10 @@ class Gui extends JFrame {
 	protected static JTextField locationField = new JTextField();
 	protected static JXComboBox selectionBox = new JXComboBox(new ListComboBoxModel<String>(Reference.Versions));
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	protected static ListTableModel model = new ListTableModel(Reference.TableListofLists, Reference.TableList);
+	
 	protected Container contentPane = getContentPane();
-
 
 	Gui() {
 		super(Reference.TITLE + " " + Reference.VERSION);
@@ -81,8 +88,6 @@ class Gui extends JFrame {
 		setResizable(false);
 		setIconImage(new ImageIcon(getClass().getResource("/com/sww/launcher/icon.png")).getImage());
 		contentPane.setLayout(null);
-
-        
 	}
 	
 	/* private void init() {
@@ -131,8 +136,10 @@ class Gui extends JFrame {
 		
 		mainTab.setLayout(new FlowLayout());
 		versionsTab.setLayout(new FlowLayout());
-		profilesTab.setLayout(null);
+		profileTab.setLayout(null);
 		panel0.setLayout(null);
+		
+		table0.setModel(model);
 	}
 	
 	protected void setText() {
@@ -240,14 +247,14 @@ class Gui extends JFrame {
 		versionsTab.add(newProfileButton);
 		versionsTab.add(spacer0);
 		newsTab.add(news);
-		profilesTab.add(profileTab);
+		profileTab.add(table0);
 		consoleTab.add(console);
 		
 		tabbedPane1.addTab("Main", mainTab);
-		tabbedPane1.addTab("Login", loginTab);
+		//tabbedPane1.addTab("Login", loginTab);
 		tabbedPane1.addTab("Versions", versionsTab);
 		tabbedPane2.addTab("News", newsTab);
-		tabbedPane2.addTab("Profiles", profilesTab);
+		tabbedPane2.addTab("Profiles", profileTab);
 		tabbedPane2.addTab("Console", consoleTab);
 		
 		panel0.add(playButton);
