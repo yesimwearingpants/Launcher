@@ -41,7 +41,6 @@ class Gui extends JFrame {
 	private static final Password Password = new Password();
 	private static final User User = new User();
 	
-
 	private JPanel spacer0 = new JPanel(null);
 	private JPanel spacer1 = new JPanel(null);
 	private JPanel spacer2 = new JPanel(null);

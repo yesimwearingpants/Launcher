@@ -1,7 +1,6 @@
 package com.sww.launcher.variables;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class Reference {
@@ -16,7 +15,7 @@ public class Reference {
 	
 	public static List<Object> TableList = new ArrayList<Object>();
 
-	public static Collection<List<Object>> TableListofLists = new ArrayList<List<Object>>();
+	public static List<List<Object>> TableListofLists = new ArrayList<List<Object>>();
 	
 	public static String Profile;
 
@@ -38,6 +37,13 @@ public class Reference {
 		Versions.add("0.3.1");
 		Versions.add("0.3.2");
 		Versions.add("0.3.3");
+	}
+	
+	public static void buildTable() {
+		TableList.add("Profile");
+		TableList.add("Version");
+		TableList.add("Location");
+		TableList.add("Active");
 	}
 
 }
