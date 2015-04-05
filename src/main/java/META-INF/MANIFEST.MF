@@ -1,2 +1,2 @@
-Manifent-Version: 1.0
+Manifest-Version: 1.0
 Main-Class: com.sww.launcher.Main

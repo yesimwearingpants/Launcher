@@ -1,12 +1,13 @@
 package com.sww.launcher.variables;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class Reference {
-	
-	private Reference() {}
-	
+public abstract class Reference {
+		
 	public static final String TITLE = "Terracraft Launcher";
 		
 	public static final String VERSION = "0.1";
@@ -20,20 +21,28 @@ public class Reference {
 	public static String Profile;
 
 	public static String SaveLocation = "/";
+
+	public static List<String> Servers = new ArrayList<String>();
+	/** GameDir */
+	public static final File gameDir = new File(".Terracraft");
+	/** Config File */
+	public static final File configFile = new File(String.format("%s%s%s", gameDir.toString(), "/", "Terracraft"));
+	/** Logger File */
+	public static final File logFile = new File(String.format("%s%s%s", gameDir.toString(),	"/Log.", new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss").format(new Date(System.currentTimeMillis()))));
 	
 	public static void addVersion() {
 		Versions.add("0.0.1");
 		Versions.add("0.0.2");
 		Versions.add("0.0.3");
-		Versions.add("0.1");
-		Versions.add("0.3.1");
+		Versions.add("0.1.0");
+		Versions.add("0.1.1");
 		Versions.add("0.1.2");
 		Versions.add("0.1.3");
-		Versions.add("0.2");
+		Versions.add("0.2.0");
 		Versions.add("0.2.1");
 		Versions.add("0.2.2");
 		Versions.add("0.2.3");
-		Versions.add("0.3");
+		Versions.add("0.3.0");
 		Versions.add("0.3.1");
 		Versions.add("0.3.2");
 		Versions.add("0.3.3");

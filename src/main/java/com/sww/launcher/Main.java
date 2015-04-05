@@ -3,10 +3,12 @@ package com.sww.launcher;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import org.jdesktop.swingx.util.OS;
 
+import com.sww.launcher.file.Profile;
 import com.sww.launcher.gui.Window;
 import com.sww.launcher.variables.Reference;
 
@@ -23,10 +25,19 @@ public class Main {
 
 		Reference.addVersion();
 		Reference.buildTable();
+		Profile c = new Profile(Reference.configFile);
+		c.createFile();
+		Profile l = new Profile(Reference.logFile);;
+		l.createFile();
 		
-		Window win = new Window();
-		win.setVisible(true);
-		win.init();
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				Window win = new Window();
+				win.setVisible(true);
+				win.init();
+			}
+		});
 		
 		if(OS.isLinux())
 	        try {
