@@ -5,10 +5,10 @@ import java.util.logging.Logger;
 
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
-import org.jdesktop.swingx.util.OS;
-
-import com.sww.launcher.file.Profile;
+import com.sww.launcher.events.FileEvent;
+import com.sww.launcher.events.ProfileEvent;
 import com.sww.launcher.gui.Window;
 import com.sww.launcher.variables.Reference;
 
@@ -25,39 +25,28 @@ public class Main {
 
 		Reference.addVersion();
 		Reference.buildTable();
-		Profile c = new Profile(Reference.configFile);
+		FileEvent c = new FileEvent(Reference.configFile);
+		ProfileEvent p = new ProfileEvent(new Object());
 		c.createFile();
-		Profile l = new Profile(Reference.logFile);;
+		if(Reference.configFile.length() == 0) {
+			c.addLine(p.getName(), p.getVersion(), p.getLocation(), p.getBool());
+			c.readFile();
+		} else {
+			c.readFile();
+		}
+		FileEvent l = new FileEvent(Reference.logFile);;
 		l.createFile();
 		
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				Window win = new Window();
-				win.setVisible(true);
-				win.init();
-			}
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+        	Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		SwingUtilities.invokeLater(() -> {
+			Window win = new Window();
+			win.setVisible(true);
 		});
-		
-		if(OS.isLinux())
-	        try {
-	            UIManager.LookAndFeelInfo[] installedLookAndFeels = UIManager.getInstalledLookAndFeels();
-	            for (int idx=0; idx<installedLookAndFeels.length; idx++)
-	                if("GTK+".equals(installedLookAndFeels[idx].getName())) {
-	                    UIManager.setLookAndFeel(installedLookAndFeels[idx].getClassName());
-	                    break;
-	                }
-	        } catch (ClassNotFoundException ex) {
-	            Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
-	        } catch (InstantiationException ex) {
-	            Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
-	        } catch (IllegalAccessException ex) {
-	            Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
-	        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-	            Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
-	        }
-        
-        
 	}
 
 }

@@ -14,7 +14,7 @@ public abstract class Reference {
 
 	public static List<String> Versions = new ArrayList<String>();
 	
-	public static List<Object> TableList = new ArrayList<Object>();
+	public static List<String> TableList = new ArrayList<String>();
 
 	public static List<List<Object>> TableListofLists = new ArrayList<>();
 	
@@ -26,10 +26,17 @@ public abstract class Reference {
 	/** GameDir */
 	public static final File gameDir = new File(".Terracraft");
 	/** Config File */
-	public static final File configFile = new File(String.format("%s%s%s", gameDir.toString(), "/", "Terracraft"));
+	public static final File configFile = new File(String.format("%s/Terracraft", gameDir.toString()));
 	/** Logger File */
-	public static final File logFile = new File(String.format("%s%s%s", gameDir.toString(),	"/Log.", new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss").format(new Date(System.currentTimeMillis()))));
-	
+	public static final File logFile = new File(String.format("%s/Log.%s", gameDir.toString(), new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss").format(new Date(System.currentTimeMillis()))));
+
+	public static void buildTable() {
+		TableList.add("Profile");
+		TableList.add("Version");
+		TableList.add("Location");
+		TableList.add("Active");
+	}
+
 	public static void addVersion() {
 		Versions.add("0.0.1");
 		Versions.add("0.0.2");
@@ -46,13 +53,6 @@ public abstract class Reference {
 		Versions.add("0.3.1");
 		Versions.add("0.3.2");
 		Versions.add("0.3.3");
-	}
-	
-	public static void buildTable() {
-		TableList.add("Profile");
-		TableList.add("Version");
-		TableList.add("Location");
-		TableList.add("Active");
 	}
 
 }
