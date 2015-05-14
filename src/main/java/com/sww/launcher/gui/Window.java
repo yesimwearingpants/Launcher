@@ -84,8 +84,17 @@ public class Window extends JFrame {
 		versionPanel.addIListener(new IListener() {
 			@Override
 			public void addAction(EventObject e) {
+<<<<<<< Upstream, based on d9393acf0210689dbe0947d67226ef3cd0bce9eb
+=======
+				ProfileEvent p = new ProfileEvent(e);
+>>>>>>> 14ace0b New Events
 				if(versionPanel.getIListener() != null) {
+<<<<<<< Upstream, based on d9393acf0210689dbe0947d67226ef3cd0bce9eb
 					ProfileEvent p = new ProfileEvent(e);
+=======
+					mainPanel.setLabel("profileM", p.getName());
+					mainPanel.setLabel("versionM", p.getVersion());
+>>>>>>> 14ace0b New Events
 					FileEvent c = new FileEvent(Reference.configFile);
 					if(VersionPanel.getProfileButton().getText().equals("Edit Profile")) {
 						mainPanel.setLabel("profileM", p.getName());
