@@ -2,7 +2,7 @@ package com.sww.launcher.events;
 
 import java.awt.Component;
 import java.awt.event.MouseEvent;
-import java.util.List;
+import java.util.ArrayList;
 
 import com.sww.launcher.variables.Reference;
 
@@ -10,7 +10,7 @@ import com.sww.launcher.variables.Reference;
 public class MouseEventExt extends MouseEvent {
 	
 	private static int row;
-	private static List<Object> list;
+	private static ArrayList<String> list;
 
 	public MouseEventExt(Component source, int id, long when, int modifiers, int x, int y,
 			int clickCount, int button) {
@@ -29,7 +29,7 @@ public class MouseEventExt extends MouseEvent {
 		list = Reference.TableListofLists.get(row);
 	}
 	
-	public static List<Object> getRowList() {
+	public static ArrayList<String> getRowList() {
 		return list;
 	}
 

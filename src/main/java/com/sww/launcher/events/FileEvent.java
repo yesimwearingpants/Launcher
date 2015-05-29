@@ -101,10 +101,10 @@ public class FileEvent {
 	public void editFile() {
 		File tmp = new File(String.format("%s/tmp", Reference.gameDir.toString()));
 		createFile(tmp);
-		Iterator<List<Object>> it = Reference.TableListofLists.iterator();
+		Iterator<ArrayList<String>> it = Reference.TableListofLists.iterator();
 		while(it.hasNext()) {
-			ArrayList<Object> list = (ArrayList<Object>) it.next();
-			addLine((String) list.get(0), (String) list.get(1), (String) list.get(2), Boolean.valueOf((String) list.get(3)), tmp);
+			ArrayList<String> list = it.next();
+			addLine(list.get(0), list.get(1), list.get(2), Boolean.valueOf(list.get(3)), tmp);
 		}
 		file.delete();
 		tmp.renameTo(file);
@@ -117,7 +117,7 @@ public class FileEvent {
 	            while(s.hasNextLine()) {
 		            line = reader.readLine();
 	            	String array[] = line.split("\t");
-	            	List<Object> set = new ArrayList<Object>();
+	            	ArrayList<String> set = new ArrayList<>();
 	            	for(int i = 0; i < 4;) {
 	            		set.add(array[i]);
 	            		i++;
