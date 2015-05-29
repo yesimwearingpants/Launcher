@@ -43,6 +43,8 @@ public class Window extends JFrame {
 	private static final long serialVersionUID = -8477483526358458395L;
 	@SuppressWarnings("unused")
 	private static int defaultCloseOperation = EXIT_ON_CLOSE;
+	private static int x = 720;
+	private static int y = 480;
 
 	@SuppressWarnings("unused")
 	private static final Login login = new Login();
@@ -72,6 +74,7 @@ public class Window extends JFrame {
 		super(Reference.TITLE + " " + Reference.VERSION);
 
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		setSize(x, y);
 		setResizable(false);
 		setIconImage(new ImageIcon(getClass().getResource("/com/sww/launcher/icon.png")).getImage());
 		contentPane.setLayout(null);
@@ -224,7 +227,7 @@ public class Window extends JFrame {
     }
 
 	public void contentPane() {
-		int yyy = 480 - (yy + 89);
+		int yyy = y - (yy + 89);
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -233,9 +236,9 @@ public class Window extends JFrame {
             .addComponent(tab2)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup()
-                    .addComponent(buttonPanel, GroupLayout.PREFERRED_SIZE, 720, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tab1, GroupLayout.PREFERRED_SIZE, 720, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(separator1, GroupLayout.PREFERRED_SIZE, 720, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonPanel, GroupLayout.PREFERRED_SIZE, x, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tab1, GroupLayout.PREFERRED_SIZE, x, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(separator1, GroupLayout.PREFERRED_SIZE, x, GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(

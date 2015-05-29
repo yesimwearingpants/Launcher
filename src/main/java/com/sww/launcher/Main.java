@@ -14,10 +14,7 @@ import com.sww.launcher.variables.Reference;
 
 
 public class Main {
-	
-	static int x = 720;
-	static int y = x / 16 * 9;
-	
+		
 	boolean isLauncherOpen = false;
 	boolean isGameRunning = false;	
 
