@@ -20,7 +20,7 @@ public class ConsolePanel extends ScrollPane {
 		console.setEditable(false);
 		setViewportView(console);
 		System.setOut(ps);
-		//System.setErr(ps);
+		System.setErr(ps);
 	}
 
 }
