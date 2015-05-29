@@ -1,12 +1,9 @@
 package com.sww.launcher.gui.elements;
 
-import static com.sww.launcher.gui.Window.spacer0;
-import static com.sww.launcher.gui.Window.spacer3;
-import static com.sww.launcher.gui.Window.spacer4;
-import static com.sww.launcher.gui.Window.spacer5;
-
 import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
@@ -28,43 +25,90 @@ public class VersionPanel extends Panel {
 	private static JLabel profileLabel = new JLabel();
 	private static JLabel locationLabel = new JLabel();
 	private static JLabel versionLabel = new JLabel();
+	private static JLabel errorMessage = new JLabel();
+	private static boolean valid = true;
 
 	public VersionPanel() {
 
-		setLayout(new FlowLayout());
+		setLayout(new GridBagLayout());
 		profileLabel.setText("Name:  ");
 		locationLabel.setText("Location:  ");
 		versionLabel.setText("Version:  ");
 		profileButton.setText("Add New Profile");
+		errorMessage.setText("Profile already in use");
+
+		errorMessage.setVisible(valid);
 
 		profileInput.setMinimumSize(new Dimension(240, 25));
 		locationInput.setMinimumSize(new Dimension(240, 25));
 		selectionInputBox.setMinimumSize(new Dimension(340, 24));
-		setMinimumSize(new Dimension(705, 125));
 
 		profileInput.setPreferredSize(new Dimension(240, 25));
 		locationInput.setPreferredSize(new Dimension(240, 25));
 		selectionInputBox.setPreferredSize(new Dimension(340, 24));
-		setPreferredSize(new Dimension(705, 125));
 
 		selectionInputBox.setSelectedItem(Reference.Versions.get(Reference.Versions.size()-1));
-		
+
 		profileButton.addActionListener((ActionEvent e) -> {
-				action();
+			action();
 		});
-		add(spacer0);
-		add(profileLabel);
-		add(profileInput);
-		add(spacer3);
-		add(locationLabel);
-		add(locationInput);
-		add(spacer0);
-		add(spacer5);
-		add(versionLabel);
-		add(selectionInputBox);
-		add(spacer4);
-		add(profileButton);
-		add(spacer0);
+
+		GridBagConstraints gridBagConstraints;
+		
+		gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHEAST;
+        gridBagConstraints.insets = new Insets(4, 0, 0, 0);
+        add(profileLabel, gridBagConstraints);		
+
+		gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
+        add(profileInput, gridBagConstraints);
+
+		gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHEAST;
+        gridBagConstraints.insets = new Insets(4, 0, 0, 0);
+        add(locationLabel, gridBagConstraints);
+
+		gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
+        add(locationInput, gridBagConstraints);
+
+		gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new Insets(6, 80, 6, 0);
+        add(errorMessage, gridBagConstraints);
+
+		gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new Insets(4, 0, 0, 0);
+        add(versionLabel, gridBagConstraints);
+
+		gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
+        add(selectionInputBox, gridBagConstraints);
+
+		gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHEAST;
+        gridBagConstraints.insets = new Insets(0, 0, 0, 30);
+        add(profileButton, gridBagConstraints);
 	}
 
 	public static JTextField getProfileInput() {
