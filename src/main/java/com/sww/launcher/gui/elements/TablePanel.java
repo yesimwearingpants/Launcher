@@ -63,7 +63,6 @@ public class TablePanel extends ScrollPane {
 		e.setRowInt(((JTable) e.getSource()).rowAtPoint(e.getPoint()));
 		if(e.getRowInt() == table.getSelectedRow()) {
 			e.setRowList(e.getRowInt());
-			tableChanged();
 			if(getIListener() != null) {
 				getIListener().addAction(e);
 			}

@@ -1,5 +1,6 @@
 package com.sww.launcher.gui.elements;
 
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -9,20 +10,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.WindowConstants;
 
 import com.sww.launcher.gui.elements.components.Panel;
 
 @SuppressWarnings("serial")
 public class MainPanel extends Panel {
 
-	private static JLabel profileM = new JLabel();
-	private static JLabel versionM = new JLabel();
-	private static JLabel usernameM = new JLabel();
+	private static JLabel profileM;
+	private static JLabel versionM;
+	private static JLabel usernameM;
 	private static JButton settingsButton = new JButton();
 	
 	public MainPanel() {
 		setLayout(new GridBagLayout());
+		
+		profileM = new JLabel();
+		versionM = new JLabel();
+		usernameM = new JLabel();
 
 		profileM.setText("#########");
 		versionM.setText("#########");
@@ -44,7 +52,8 @@ public class MainPanel extends Panel {
 		settingsButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				@SuppressWarnings("unused")
+				Option panel = new Option();
 		}	});
 
 		GridBagConstraints gridBagConstraints;
@@ -76,20 +85,52 @@ public class MainPanel extends Panel {
         gridBagConstraints.anchor = GridBagConstraints.NORTHEAST;
         add(settingsButton, gridBagConstraints);
 	}
+
 	/**
 	 * @param s Component Variable Name as a String
 	 * @param t new <code>setText()</code> argument
 	 */
-	public void setLabel(String s, String t) {
-		if(s.equalsIgnoreCase("profileM")) {
-			profileM.setText(t);
+	public void setLabel(JLabel l, String t) {
+		l.setText(t);
+	}
+	
+	private static class Option extends JFrame {
+
+		protected Container contentPane = getContentPane();
+		private JCheckBox box = new JCheckBox();
+
+		Option() {
+			super("Settings");
+
+			setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+			setSize(160, 220);
+			setResizable(false);
+			setIconImage(null);
+			contentPane.setLayout(null);
+			addActions();
+			init();
 		}
-		if(s.equalsIgnoreCase("versionM")) {
-			versionM.setText(t);
+
+		private void addActions() {
+			
 		}
-		if(s.equalsIgnoreCase("usernameM")) {
-			usernameM.setText(t);
+
+		private void init() {
+			box .setText("");
+			
 		}
+	}
+
+	public JLabel getProfileM() {
+		return profileM;
+	}
+
+	public JLabel getVersionM() {
+		return versionM;
+	}
+
+	public JLabel getUsernameM() {
+		return usernameM;
 	}
 
 }

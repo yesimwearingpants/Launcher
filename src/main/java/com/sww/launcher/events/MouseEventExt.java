@@ -2,15 +2,15 @@ package com.sww.launcher.events;
 
 import java.awt.Component;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
+import com.sww.launcher.gui.elements.components.ListSet;
 import com.sww.launcher.variables.Reference;
 
 @SuppressWarnings("serial")
 public class MouseEventExt extends MouseEvent {
 	
 	private static int row;
-	private static ArrayList<String> list;
+	private static ListSet<String> list;
 
 	public MouseEventExt(Component source, int id, long when, int modifiers, int x, int y,
 			int clickCount, int button) {
@@ -29,7 +29,7 @@ public class MouseEventExt extends MouseEvent {
 		list = Reference.TableListofLists.get(row);
 	}
 	
-	public static ArrayList<String> getRowList() {
+	public static ListSet<String> getRowList() {
 		return list;
 	}
 

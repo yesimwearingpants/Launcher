@@ -7,12 +7,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Scanner;
 
+import com.sww.launcher.gui.elements.components.ListSet;
 import com.sww.launcher.variables.Reference;
 
 public class FileEvent {
@@ -25,7 +23,6 @@ public class FileEvent {
 	}
 
 	private File file;
-	LinkedHashSet<List<Object>> h = new LinkedHashSet<List<Object>>();
 	
 	public void createFile() {
 		boolean r;
@@ -66,10 +63,10 @@ public class FileEvent {
 	
 	/**
 	 * Adds a new entry to File file
-	 * @param n <br>Profile Name</br>
-	 * @param l <br>Game Files / Save Location</br>
-	 * @param v <br>Game Version</br>
-	 * @param b <br><code>isProfileActive()</code> Defaults to false <strong>for now</strong></br>
+	 * @param n Profile Name
+	 * @param l Game Files / Save Location
+	 * @param v Game Version
+	 * @param b <code>isProfileActive()</code> Defaults to false <strong>for now</strong>
 	 */
 	public void addLine(String n, String v, String l, Boolean b) {
 		try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true))) {
@@ -81,30 +78,21 @@ public class FileEvent {
         }
 	}
 	
-	/**
-	 * Adds a new entry to File f
-	 * @param n <br>Profile Name</br>
-	 * @param l <br>Game Files / Save Location</br>
-	 * @param v <br>Game Version</br>
-	 * @param b <br><code>isProfileActive()</code> Defaults to false <strong>for now</strong></br>
-	 */
-	private void addLine(String n, String v, String l, Boolean b, File f) {
-		try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(f, true))) {
-			bufferedWriter.write(String.format("%s\t%s\t%s\t%s\n", n, v, l, String.valueOf(b)));
-        }
-        catch(IOException e) {
-            System.out.printf("Error writing to file '%s'\n\n", f);
-            e.printStackTrace();
-        }
-	}
+
 	
 	public void editFile() {
 		File tmp = new File(String.format("%s/tmp", Reference.gameDir.toString()));
 		createFile(tmp);
-		Iterator<ArrayList<String>> it = Reference.TableListofLists.iterator();
+		Iterator<ListSet<String>> it = Reference.TableListofLists.iterator();
 		while(it.hasNext()) {
-			ArrayList<String> list = it.next();
-			addLine(list.get(0), list.get(1), list.get(2), Boolean.valueOf(list.get(3)), tmp);
+			ListSet<String> list = it.next();
+			try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(tmp, true))) {
+				bufferedWriter.write(String.format("%s\t%s\t%s\t%s\n", list.get(0), list.get(1), list.get(2), list.get(3)));
+	        }
+	        catch(IOException e) {
+	            System.out.printf("Error writing to file '%s'\n\n", file);
+	            e.printStackTrace();
+	        }
 		}
 		file.delete();
 		tmp.renameTo(file);
@@ -117,12 +105,13 @@ public class FileEvent {
 	            while(s.hasNextLine()) {
 		            line = reader.readLine();
 	            	String array[] = line.split("\t");
-	            	ArrayList<String> set = new ArrayList<>();
-	            	for(int i = 0; i < 4;) {
+	            	ListSet<String> set = new ListSet<>();
+	            	for(int i = 0; i < 4; i++) {
 	            		set.add(array[i]);
-	            		i++;
 	            	}
 		            Reference.TableListofLists.add(set);
+		            Reference.HashSet0.add(array[0]);
+		            Reference.HashSet1.add(array[2]);
 		            s.nextLine();
 	        	}
 	            reader.close();

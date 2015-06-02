@@ -1,16 +1,12 @@
 package com.sww.launcher.gui;
 
 import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-import java.util.ArrayList;
 import java.util.EventObject;
-import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
@@ -18,19 +14,19 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
-import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 
 import com.sww.launcher.events.FileEvent;
 import com.sww.launcher.events.IListener;
 import com.sww.launcher.events.MouseEventExt;
-import com.sww.launcher.events.ProfileEvent;
 import com.sww.launcher.events.MouseEventExt.Var;
+import com.sww.launcher.events.ProfileEvent;
 import com.sww.launcher.gui.elements.ConsolePanel;
 import com.sww.launcher.gui.elements.MainPanel;
 import com.sww.launcher.gui.elements.NewsPanel;
 import com.sww.launcher.gui.elements.TablePanel;
 import com.sww.launcher.gui.elements.VersionPanel;
+import com.sww.launcher.gui.elements.components.ListSet;
 import com.sww.launcher.gui.elements.components.Panel;
 import com.sww.launcher.gui.elements.login.LoginPanel;
 import com.sww.launcher.login.Login;
@@ -78,7 +74,12 @@ public class Window extends JFrame {
 		setResizable(false);
 		setIconImage(new ImageIcon(getClass().getResource("/com/sww/launcher/icon.png")).getImage());
 		contentPane.setLayout(null);
-		addActions();
+		Thread thread0 = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				addActions();
+		}	});
+		thread0.start();
 		init();
 	}
 
@@ -123,36 +124,67 @@ public class Window extends JFrame {
 			@Override
 			public void addAction(EventObject e) {
 				if(versionPanel.getIListener() != null) {
+					boolean bool0 = false;
+					boolean bool1 = false;
 					if(VersionPanel.getProfileButton().getText().equals("Edit Profile")) {
 						MouseEventExt ev = new MouseEventExt(Var.getComponent(), Var.getId(), Var.getWhen(),
 							Var.getModifiers(), Var.getX(), Var.getY(), Var.getClickcount(), Var.getButton());
 						ProfileEvent p = new ProfileEvent(e);
-						ArrayList<String> set = MouseEventExt.getRowList();
-						set.add(p.getName());
+						ListSet<String> set = new ListSet<String>(Reference.TableListofLists);
+						System.out.println(Reference.TableListofLists.toString() + "\n" + Reference.HashSet0.toString() + "\n" + Reference.HashSet1.toString());
+						Reference.HashSet0.add(getName());
+						bool0 = set.check(Reference.HashSet0, p.getName());
 						set.add(p.getVersion());
-						set.add(p.getLocation());
+						Reference.HashSet1.add(p.getLocation());
+						bool1 = set.check(Reference.HashSet1, p.getLocation());
 						set.add((String.valueOf(p.getBool())));
-						System.out.println(ev.getRowInt());
-						Reference.TableListofLists.set(ev.getRowInt(), set);
+						int i = ev.getRowInt();
+						Reference.HashSet0.removeAll(MouseEventExt.getRowList());
+						Reference.HashSet1.removeAll(MouseEventExt.getRowList());
+						Reference.TableListofLists.remove(i);
+						if(bool0 && bool1) {
+							Reference.TableListofLists.add(i, set);
+						} else {
+							versionPanel.setValid(true);
+							try {
+								Thread.sleep(500);
+							} catch (InterruptedException e1) {
+								e1.printStackTrace();
+							}
+						}
+						System.out.println(Reference.TableListofLists.toString() + "\n" + Reference.HashSet0.toString() + "\n" + Reference.HashSet1.toString());
 						c.editFile();
 						TablePanel.tableChanged();
 						VersionPanel.getProfileButton().setText("Add New Profile");
-						mainPanel.setLabel("profileM", p.getName());
-						mainPanel.setLabel("versionM", p.getVersion());
+						mainPanel.setLabel(mainPanel.getProfileM(), p.getName());
+						mainPanel.setLabel(mainPanel.getVersionM(), p.getVersion());
 					} else {
 						ProfileEvent p = new ProfileEvent(e);
-						mainPanel.setLabel("profileM", p.getName());
-						mainPanel.setLabel("versionM", p.getVersion());
-						ArrayList<String> set = new ArrayList<>();
-						set.add(p.getName());
+						mainPanel.setLabel(mainPanel.getProfileM(), p.getName());
+						mainPanel.setLabel(mainPanel.getVersionM(), p.getVersion());
+						ListSet<String> set = new ListSet<String>(Reference.TableListofLists);
+						Reference.HashSet0.add(getName());
+						bool0 = set.check(Reference.HashSet0, p.getName());
 						set.add(p.getVersion());
-						set.add(p.getLocation());
+						Reference.HashSet1.add(p.getLocation());
+						bool1 = set.check(Reference.HashSet1, p.getLocation());
 						set.add((String.valueOf(p.getBool())));
+						Reference.HashSet0.removeAll(MouseEventExt.getRowList());
+						Reference.HashSet1.removeAll(MouseEventExt.getRowList());
 						c.addLine(p.getName(), p.getVersion(), p.getLocation(), p.getBool());
-						Reference.TableListofLists.add(set);
+						if(bool0 && bool1) {
+							Reference.TableListofLists.add(set);
+						} else {
+							versionPanel.setValid(true);
+							try {
+								Thread.sleep(500);
+							} catch (InterruptedException e1) {
+								e1.printStackTrace();
+							}
+						}
 						TablePanel.tableChanged();
-					}	
-		}	}	});
+				}	}
+		}	});
 		tablePanel.addIListener(new IListener() {
 			@Override
 			public void addAction(EventObject e) {
@@ -161,8 +193,6 @@ public class Window extends JFrame {
 						Reference.TableListofLists.remove(((MouseEventExt) e).getRowInt());
 						c.editFile();
 						TablePanel.tableChanged();
-					} else if(((MouseEventExt) e).getButton() == MouseEvent.BUTTON2) {
-						
 					} else {
 						VersionPanel.getProfileButton().setText("Edit Profile");
 						VersionPanel.getProfileInput().setText((String) MouseEventExt.getRowList().get(0));

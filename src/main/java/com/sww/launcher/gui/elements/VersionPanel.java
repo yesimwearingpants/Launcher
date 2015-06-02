@@ -26,7 +26,7 @@ public class VersionPanel extends Panel {
 	private static JLabel locationLabel = new JLabel();
 	private static JLabel versionLabel = new JLabel();
 	private static JLabel errorMessage = new JLabel();
-	private static boolean valid = true;
+	private static boolean valid = false;
 
 	public VersionPanel() {
 
@@ -144,6 +144,10 @@ public class VersionPanel extends Panel {
 		if(super.getIListener() != null) {
 			super.getIListener().addAction(ev);
 		}
+	}
+
+	public void setValid(boolean valid) {
+		VersionPanel.valid = valid;
 	}
 
 }
