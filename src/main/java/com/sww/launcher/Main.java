@@ -10,7 +10,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import com.sww.launcher.events.FileEvent;
 import com.sww.launcher.events.ProfileEvent;
 import com.sww.launcher.gui.Window;
-import com.sww.launcher.variables.Reference;
+import com.sww.launcher.reference.Reference;
 
 
 public class Main {
@@ -26,7 +26,7 @@ public class Main {
 		ProfileEvent p = new ProfileEvent(new Object());
 		c.createFile();
 		if(Reference.configFile.length() == 0) {
-			c.addLine(p.getName(), p.getVersion(), p.getLocation(), p.getBool());
+			c.addLine(p.getName(), p.getVersion(), p.getLocation());
 			c.readFile();
 		} else {
 			c.readFile();

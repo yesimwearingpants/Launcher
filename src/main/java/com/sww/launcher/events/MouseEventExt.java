@@ -3,14 +3,14 @@ package com.sww.launcher.events;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
 
-import com.sww.launcher.gui.elements.components.ListSet;
-import com.sww.launcher.variables.Reference;
+import com.sww.launcher.reference.Reference;
+import com.sww.launcher.util.Profile;
 
 @SuppressWarnings("serial")
 public class MouseEventExt extends MouseEvent {
 	
 	private static int row;
-	private static ListSet<String> list;
+	private static Profile list;
 
 	public MouseEventExt(Component source, int id, long when, int modifiers, int x, int y,
 			int clickCount, int button) {
@@ -26,16 +26,16 @@ public class MouseEventExt extends MouseEvent {
 	}
 
 	public void setRowList(int row) {
-		list = Reference.TableListofLists.get(row);
+		list = Reference.Profiles.get(row);
 	}
 	
-	public static ListSet<String> getRowList() {
+	public static Profile getRowList() {
 		return list;
 	}
 
 	public static int d0() {
 		if(list != null) {
-			String string = (String) list.get(1);
+			String string = list.getVersion();
 			int i = 0;
 			while (!string.equals(Reference.Versions.get(i)) && i < (Reference.Versions.size()-1)) {
 				 i++;

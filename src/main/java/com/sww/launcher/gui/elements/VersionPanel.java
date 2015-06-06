@@ -13,7 +13,8 @@ import javax.swing.JTextField;
 import com.sww.launcher.events.ProfileEvent;
 import com.sww.launcher.gui.elements.components.Combox;
 import com.sww.launcher.gui.elements.components.Panel;
-import com.sww.launcher.variables.Reference;
+import com.sww.launcher.reference.Reference;
+import com.sww.launcher.util.Path;
 
 @SuppressWarnings("serial")
 public class VersionPanel extends Panel {
@@ -132,10 +133,10 @@ public class VersionPanel extends Panel {
 		if(profileInput.getText() != null) {
 			ev.setName(profileInput.getText());
 			if(!locationInput.getText().equals("")) {
-				ev.setLocation(locationInput.getText());
+				ev.setLocation(new Path(locationInput.getText()));
 			} else {
 				// Default Save Location
-				ev.setLocation(Reference.SaveLocation);
+				ev.setLocation(new Path(Reference.SaveLocation));
 			}
 			ev.setVersion(selectionInputBox.getSelectedItem().toString());
 		} else {

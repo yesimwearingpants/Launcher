@@ -9,7 +9,7 @@ import com.sww.launcher.events.MouseEventExt;
 import com.sww.launcher.events.MouseEventExt.Var;
 import com.sww.launcher.gui.elements.components.ListTableModel;
 import com.sww.launcher.gui.elements.components.ScrollPane;
-import com.sww.launcher.variables.Reference;
+import com.sww.launcher.reference.Reference;
 
 @SuppressWarnings("serial")
 public class TablePanel extends ScrollPane {
@@ -19,7 +19,7 @@ public class TablePanel extends ScrollPane {
 		public boolean isCellEditable(int row, int column) {
 			return false;
 	}	};
-	private static ListTableModel model = new ListTableModel(Reference.TableListofLists,
+	private static ListTableModel model = new ListTableModel(Reference.Profiles,
 		Reference.TableList);
 
 

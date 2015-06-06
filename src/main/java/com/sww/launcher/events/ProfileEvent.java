@@ -2,11 +2,13 @@ package com.sww.launcher.events;
 
 import java.util.EventObject;
 
+import com.sww.launcher.util.Path;
+
 @SuppressWarnings("serial")
 public class ProfileEvent extends EventObject {
 	
 	private static String name = "Default";
-	private static String location = "/";
+	private static Path location = new Path(System.getProperty("user.home"));
 	private static String version = "0.0.1";
 	private static Boolean bool = Boolean.FALSE;
 
@@ -19,7 +21,7 @@ public class ProfileEvent extends EventObject {
 		return name;
 	}
 
-	public String getLocation() {
+	public Path getLocation() {
 
 		return location;
 	}
@@ -39,7 +41,7 @@ public class ProfileEvent extends EventObject {
 		ProfileEvent.name = name;
 	}
 
-	public void setLocation(String location) {
+	public void setLocation(Path location) {
 
 		ProfileEvent.location = location;
 	}

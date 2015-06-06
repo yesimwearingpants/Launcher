@@ -26,13 +26,13 @@ import com.sww.launcher.gui.elements.MainPanel;
 import com.sww.launcher.gui.elements.NewsPanel;
 import com.sww.launcher.gui.elements.TablePanel;
 import com.sww.launcher.gui.elements.VersionPanel;
-import com.sww.launcher.gui.elements.components.ListSet;
 import com.sww.launcher.gui.elements.components.Panel;
 import com.sww.launcher.gui.elements.login.LoginPanel;
-import com.sww.launcher.login.Login;
-import com.sww.launcher.login.Password;
-import com.sww.launcher.login.User;
-import com.sww.launcher.variables.Reference;
+import com.sww.launcher.reference.Reference;
+import com.sww.launcher.util.Profile;
+import com.sww.launcher.util.login.Login;
+import com.sww.launcher.util.login.Password;
+import com.sww.launcher.util.login.User;
 
 public class Window extends JFrame {
 
@@ -124,27 +124,15 @@ public class Window extends JFrame {
 			@Override
 			public void addAction(EventObject e) {
 				if(versionPanel.getIListener() != null) {
-					boolean bool0 = false;
-					boolean bool1 = false;
+					ProfileEvent p = new ProfileEvent(e);
+					Profile profile = new Profile(p.getName(), p.getVersion(), p.getLocation());
 					if(VersionPanel.getProfileButton().getText().equals("Edit Profile")) {
 						MouseEventExt ev = new MouseEventExt(Var.getComponent(), Var.getId(), Var.getWhen(),
 							Var.getModifiers(), Var.getX(), Var.getY(), Var.getClickcount(), Var.getButton());
-						ProfileEvent p = new ProfileEvent(e);
-						ListSet<String> set = new ListSet<String>(Reference.TableListofLists);
-						System.out.println(Reference.TableListofLists.toString() + "\n" + Reference.HashSet0.toString() + "\n" + Reference.HashSet1.toString());
-						Reference.HashSet0.add(getName());
-						bool0 = set.check(Reference.HashSet0, p.getName());
-						set.add(p.getVersion());
-						Reference.HashSet1.add(p.getLocation());
-						bool1 = set.check(Reference.HashSet1, p.getLocation());
-						set.add((String.valueOf(p.getBool())));
-						int i = ev.getRowInt();
-						Reference.HashSet0.removeAll(MouseEventExt.getRowList());
-						Reference.HashSet1.removeAll(MouseEventExt.getRowList());
-						Reference.TableListofLists.remove(i);
-						if(bool0 && bool1) {
-							Reference.TableListofLists.add(i, set);
-						} else {
+						//bool0 = profile.setName(p.getName());
+						//profile.setVersion(p.getVersion());
+						//bool1 = profile.setLocation(p.getLocation());
+						if(!Reference.Profiles.addAsBoolean(ev.getRowInt(), profile)) {
 							versionPanel.setValid(true);
 							try {
 								Thread.sleep(500);
@@ -152,29 +140,15 @@ public class Window extends JFrame {
 								e1.printStackTrace();
 							}
 						}
-						System.out.println(Reference.TableListofLists.toString() + "\n" + Reference.HashSet0.toString() + "\n" + Reference.HashSet1.toString());
 						c.editFile();
 						TablePanel.tableChanged();
 						VersionPanel.getProfileButton().setText("Add New Profile");
 						mainPanel.setLabel(mainPanel.getProfileM(), p.getName());
 						mainPanel.setLabel(mainPanel.getVersionM(), p.getVersion());
 					} else {
-						ProfileEvent p = new ProfileEvent(e);
 						mainPanel.setLabel(mainPanel.getProfileM(), p.getName());
 						mainPanel.setLabel(mainPanel.getVersionM(), p.getVersion());
-						ListSet<String> set = new ListSet<String>(Reference.TableListofLists);
-						Reference.HashSet0.add(getName());
-						bool0 = set.check(Reference.HashSet0, p.getName());
-						set.add(p.getVersion());
-						Reference.HashSet1.add(p.getLocation());
-						bool1 = set.check(Reference.HashSet1, p.getLocation());
-						set.add((String.valueOf(p.getBool())));
-						Reference.HashSet0.removeAll(MouseEventExt.getRowList());
-						Reference.HashSet1.removeAll(MouseEventExt.getRowList());
-						c.addLine(p.getName(), p.getVersion(), p.getLocation(), p.getBool());
-						if(bool0 && bool1) {
-							Reference.TableListofLists.add(set);
-						} else {
+						if(!Reference.Profiles.add(profile)) {
 							versionPanel.setValid(true);
 							try {
 								Thread.sleep(500);
@@ -190,13 +164,13 @@ public class Window extends JFrame {
 			public void addAction(EventObject e) {
 				if(tablePanel.getIListener() != null) {
 					if(((MouseEventExt) e).getButton() == MouseEvent.BUTTON3) {
-						Reference.TableListofLists.remove(((MouseEventExt) e).getRowInt());
+						Reference.Profiles.remove(((MouseEventExt) e).getRowInt());
 						c.editFile();
 						TablePanel.tableChanged();
 					} else {
 						VersionPanel.getProfileButton().setText("Edit Profile");
-						VersionPanel.getProfileInput().setText((String) MouseEventExt.getRowList().get(0));
-						VersionPanel.getLocationInput().setText((String) MouseEventExt.getRowList().get(2));
+						VersionPanel.getProfileInput().setText((String) MouseEventExt.getRowList().getName());
+						VersionPanel.getLocationInput().setText((String) MouseEventExt.getRowList().getLocation().toString());
 						VersionPanel.getSelectionInputBox().setSelectedIndex(MouseEventExt.d0());
 				}	}
 		}	});

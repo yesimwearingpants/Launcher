@@ -10,8 +10,9 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Scanner;
 
-import com.sww.launcher.gui.elements.components.ListSet;
-import com.sww.launcher.variables.Reference;
+import com.sww.launcher.reference.Reference;
+import com.sww.launcher.util.Path;
+import com.sww.launcher.util.Profile;
 
 public class FileEvent {
 	
@@ -68,9 +69,9 @@ public class FileEvent {
 	 * @param v Game Version
 	 * @param b <code>isProfileActive()</code> Defaults to false <strong>for now</strong>
 	 */
-	public void addLine(String n, String v, String l, Boolean b) {
+	public void addLine(String n, String v, Path l) {
 		try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true))) {
-			bufferedWriter.write(String.format("%s\t%s\t%s\t%s\n", n, v, l, String.valueOf(b)));
+			bufferedWriter.write(String.format("%s\t%s\t%s\t%s\n", n, v, l.toString()));
         }
         catch(IOException e) {
             System.out.printf("Error writing to file '%s'\n\n", file);
@@ -83,11 +84,11 @@ public class FileEvent {
 	public void editFile() {
 		File tmp = new File(String.format("%s/tmp", Reference.gameDir.toString()));
 		createFile(tmp);
-		Iterator<ListSet<String>> it = Reference.TableListofLists.iterator();
+		Iterator<Profile> it = Reference.Profiles.iterator();
 		while(it.hasNext()) {
-			ListSet<String> list = it.next();
+			Profile list = it.next();
 			try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(tmp, true))) {
-				bufferedWriter.write(String.format("%s\t%s\t%s\t%s\n", list.get(0), list.get(1), list.get(2), list.get(3)));
+				bufferedWriter.write(String.format("%s\t%s\t%s\t%s\n", list.getName(), list.getVersion(), list.getLocation()));
 	        }
 	        catch(IOException e) {
 	            System.out.printf("Error writing to file '%s'\n\n", file);
@@ -105,13 +106,10 @@ public class FileEvent {
 	            while(s.hasNextLine()) {
 		            line = reader.readLine();
 	            	String array[] = line.split("\t");
-	            	ListSet<String> set = new ListSet<>();
-	            	for(int i = 0; i < 4; i++) {
-	            		set.add(array[i]);
-	            	}
-		            Reference.TableListofLists.add(set);
+	            	Profile profile = new Profile(array[0], array[1], new Path(array[2]));
+		            Reference.Profiles.add(profile);
 		            Reference.HashSet0.add(array[0]);
-		            Reference.HashSet1.add(array[2]);
+		            Reference.HashSet1.add(new Path(array[2]));
 		            s.nextLine();
 	        	}
 	            reader.close();

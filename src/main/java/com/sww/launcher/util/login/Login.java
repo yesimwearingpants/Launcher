@@ -1,4 +1,4 @@
-package com.sww.launcher.login;
+package com.sww.launcher.util.login;
 
 import org.jdesktop.swingx.auth.LoginService;
 

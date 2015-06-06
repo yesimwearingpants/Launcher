@@ -1,28 +1,51 @@
-package com.sww.launcher.variables;
+/**
+ * Copyright (c) 2015 Greg Wright
+ *	
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the termsof the MIT License
+ * 
+ * @author yesimwearingpants
+ * Modified by @author chess123mate
+ * Created Mar 22, 2015
+ */
+package com.sww.launcher.reference;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
-import com.sww.launcher.gui.elements.components.ListSet;
+import com.sww.launcher.util.ListSet;
+import com.sww.launcher.util.Path;
+import com.sww.launcher.util.Profile;
 
 public abstract class Reference {
 	/**	Application (Launcher) Title	*/
 	public static final String TITLE = "Terracraft Launcher";
 	/**	Application (Launcher) Version	*/	
 	public static final String VERSION = "0.1";
-	
-	public static List<String> Versions = new ArrayList<String>();
+	/**	Game Versions	*/
+	public static List<String> Versions = new ArrayList<>();
+	/**	Line Number of Currently Active Profile	*/
+	public static int ActiveProfile;
+	/**	Returns the Active Profile	*/
+	public static Profile GetActiveProfile() {
+		return Profiles.get(ActiveProfile);
+	}
+	/**	List Containing Table Rows	*/
+	public static ListSet<Profile> Profiles = new ListSet<>();
+	/**	HastSet of Profile Names	*/
+	public static HashSet<String> HashSet0 = new HashSet<>();
+	/**	HashSet of Locations as URI	*/
+	public static HashSet<Path> HashSet1 = new HashSet<>();
 	/** Table Columns	*/
 	public static List<String> TableList = new ArrayList<String>();
-	/**	Contains Table Rows as <code>ListSet</code>s	*/
-	public static List<ListSet<String>> TableListofLists = new ArrayList<>();
-	/** Profile Name HashSet	*/
-	public static List<String> HashSet0 = new ArrayList<>();
-	/**	Save Location HashSet	*/
-	public static List<String> HashSet1 = new ArrayList<>();
 	/** Default Save Location	*/
 	public static String SaveLocation = "/";
 	/**	Server List	*/
