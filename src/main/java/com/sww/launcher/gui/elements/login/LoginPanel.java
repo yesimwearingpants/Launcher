@@ -4,6 +4,8 @@
  * Originally licensed under GNU Lesser General Public
  * License as published by the Free Software Foundation
  * version 2.1
+ * 
+ *  Created Mar 14, 2015
  */
 package com.sww.launcher.gui.elements.login;
 
