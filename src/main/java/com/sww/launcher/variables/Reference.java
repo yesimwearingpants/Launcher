@@ -16,7 +16,7 @@ public abstract class Reference {
 	
 	public static List<Object> TableList = new ArrayList<Object>();
 
-	public static List<List<Object>> TableListofLists = new ArrayList<List<Object>>();
+	public static List<List<Object>> TableListofLists = new ArrayList<>();
 	
 	public static String Profile;
 

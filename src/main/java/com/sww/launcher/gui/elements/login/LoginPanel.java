@@ -12,17 +12,19 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JProgressBar;
 import javax.swing.JTextField;
+
+import org.jdesktop.swingx.JXHyperlink;
 
 import com.sww.launcher.gui.elements.components.Combox;
 import com.sww.launcher.gui.elements.components.Panel;
@@ -53,7 +55,7 @@ public class LoginPanel extends Panel {
         JLabel colonSpaceLabel2 = new JLabel();
         JLabel serverLabel = new JLabel();
         JLabel errorMessageLabel = new JLabel();
-        JLabel forgotPassword = new JLabel();
+        JXHyperlink forgotPassword = new JXHyperlink();
         Panel innerPanel = new Panel();
         JPasswordField passwordField = new JPasswordField();
         JButton loginButton = new JButton();
@@ -62,11 +64,11 @@ public class LoginPanel extends Panel {
         JLabel usernameLabel = new JLabel();
         JCheckBox saveCB = new JCheckBox();
         outerPanel.setLayout(new GridBagLayout());
-
         firstPanel.setLayout(new GridBagLayout());
 
-        errorMessageLabel.setFont(new Font("Dialog", 1, 8)); // NOI18N
-        errorMessageLabel.setText("jLabel1");
+        errorMessageLabel.setFont(new Font("Dialog", 1, 8));
+        errorMessageLabel.setText("");
+        errorMessageLabel.setVisible(false);
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 0;
@@ -74,6 +76,7 @@ public class LoginPanel extends Panel {
         gridBagConstraints.insets = new Insets(5, 62, 0, 0);
         firstPanel.add(errorMessageLabel, gridBagConstraints);
 
+        usernameLabel.setFont(new Font("Dialog", 1, 12));
         usernameLabel.setText("Username");
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -107,7 +110,6 @@ public class LoginPanel extends Panel {
         gridBagConstraints.insets = new Insets(12, 4, 0, 6);
         firstPanel.add(colonSpaceLabel1, gridBagConstraints);
 
-        usernameField.setText("jTextField1");
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 1;
@@ -119,7 +121,6 @@ public class LoginPanel extends Panel {
         gridBagConstraints.insets = new Insets(7, 0, 0, 0);
         firstPanel.add(usernameField, gridBagConstraints);
 
-        passwordField.setText("jTextField1");
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 3;
@@ -153,8 +154,7 @@ public class LoginPanel extends Panel {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridheight = GridBagConstraints.RELATIVE;
-        gridBagConstraints.ipadx = -73;
-        gridBagConstraints.ipady = 28;
+        gridBagConstraints.ipady = 39;
         gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
         outerPanel.add(firstPanel, gridBagConstraints);
 
@@ -163,7 +163,7 @@ public class LoginPanel extends Panel {
         if(servers != null && servers.size() > 1) {
             serverLabel.setText("Login Server");
             gridBagConstraints = new GridBagConstraints();
-            gridBagConstraints.gridx = 1;
+            gridBagConstraints.gridx = 8;
             gridBagConstraints.gridy = 0;
             gridBagConstraints.anchor = GridBagConstraints.NORTHEAST;
             gridBagConstraints.insets = new Insets(5, 46, 0, 4);
@@ -171,25 +171,24 @@ public class LoginPanel extends Panel {
 
             colonSpaceLabel2.setText(":");
             gridBagConstraints = new GridBagConstraints();
-            gridBagConstraints.gridx = 2;
+            gridBagConstraints.gridx = 9;
             gridBagConstraints.gridy = 0;
             gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
             gridBagConstraints.insets = new Insets(5, 3, 0, 3);
             secondPanel.add(colonSpaceLabel2, gridBagConstraints);
 
             gridBagConstraints = new GridBagConstraints();
-            gridBagConstraints.gridx = 3;
+            gridBagConstraints.gridx = 10;
             gridBagConstraints.gridy = 0;
             gridBagConstraints.gridwidth = 4;
             gridBagConstraints.ipadx = 109;
             gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
             secondPanel.add(serverCombo, gridBagConstraints);
 
-
             loginButton.setText("Login");
             loginButton.setPreferredSize(new Dimension(95, 30));
             gridBagConstraints = new GridBagConstraints();
-            gridBagConstraints.gridx = 0;
+            gridBagConstraints.gridx = 7;
             gridBagConstraints.gridy = 2;
             gridBagConstraints.gridwidth = 2;
             gridBagConstraints.ipadx = 64;
@@ -202,25 +201,24 @@ public class LoginPanel extends Panel {
             innerPanel.setPreferredSize(new Dimension(180, 50));
 
             if(isMediaPanel) {
-                innerPanel.setLayout(new GridLayout(2, 3));
                 innerPanel.add(createMediaPanel());
             }
 
             gridBagConstraints = new GridBagConstraints();
-            gridBagConstraints.gridx = 4;
+            gridBagConstraints.gridx = 11;
             gridBagConstraints.gridy = 1;
             gridBagConstraints.gridheight = 2;
             gridBagConstraints.ipadx = 24;
-            gridBagConstraints.ipady = 60;
+            gridBagConstraints.ipady = 64;
             gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
-            gridBagConstraints.insets = new Insets(12, 51, 0, 39);
+            gridBagConstraints.insets = new Insets(3, 51, 0, 39);
             secondPanel.add(innerPanel, gridBagConstraints);
             
         } else {
             loginButton.setText("Login");
             loginButton.setPreferredSize(new Dimension(95, 30));
             gridBagConstraints = new GridBagConstraints();
-            gridBagConstraints.gridx = 0;
+            gridBagConstraints.gridx = 7;
             gridBagConstraints.gridy = 2;
             gridBagConstraints.gridwidth = 2;
             gridBagConstraints.ipadx = 64;
@@ -233,18 +231,17 @@ public class LoginPanel extends Panel {
             innerPanel.setPreferredSize(new Dimension(180, 50));
 
             if(isMediaPanel) {
-                innerPanel.setLayout(new GridLayout(2, 3));
                 innerPanel.add(createMediaPanel());
             }
 
             gridBagConstraints = new GridBagConstraints();
-            gridBagConstraints.gridx = 4;
+            gridBagConstraints.gridx = 11;
             gridBagConstraints.gridy = 1;
             gridBagConstraints.gridheight = 2;
             gridBagConstraints.ipadx = 24;
-            gridBagConstraints.ipady = 60;
+            gridBagConstraints.ipady = 64;
             gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
-            gridBagConstraints.insets = new Insets(32, 51, 0, 39);
+            gridBagConstraints.insets = new Insets(20, 51, 0, 39);
             secondPanel.add(innerPanel, gridBagConstraints);
         
         }
@@ -254,11 +251,10 @@ public class LoginPanel extends Panel {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
         gridBagConstraints.gridheight = GridBagConstraints.RELATIVE;
-        gridBagConstraints.ipadx = -79;
+        gridBagConstraints.ipady = 1;
         gridBagConstraints.anchor = GridBagConstraints.NORTHEAST;
-        gridBagConstraints.insets = new Insets(0, 6, 0, 0);
         outerPanel.add(secondPanel, gridBagConstraints);
-        return outerPanel;
+        return loginPanel = outerPanel;
     }
 
 	private Panel createProgressPanel() {
@@ -276,29 +272,80 @@ public class LoginPanel extends Panel {
 	
 	private Panel createMediaPanel() {
 		
-            JButton twitter = new JButton();
-            JButton gPlus = new JButton();
-            JButton facebook = new JButton();
-            JButton othermedia = new JButton();
-            JButton othermedia2 = new JButton();
-            JButton othermedia3 = new JButton();
+		JXHyperlink twitter = new JXHyperlink();
+		JXHyperlink reddit = new JXHyperlink();
+		JXHyperlink facebook = new JXHyperlink();
+		JXHyperlink tumblr = new JXHyperlink();
+		JXHyperlink youtube = new JXHyperlink();
+		JXHyperlink othermedia = new JXHyperlink();
 
-            Panel panel = new Panel(new GridLayout(2, 3));
+    	Panel panel = new Panel(new GridBagLayout());
 
-            twitter.setIcon(null);
-            gPlus.setIcon(null);
-            facebook.setIcon(null);
-            othermedia.setIcon(null);
-            othermedia2.setIcon(null);
-            othermedia3.setIcon(null);
+        twitter.setIcon(new ImageIcon(getClass().getResource("/com/sww/launcher/login/twitter.png")));
+        reddit.setIcon(new ImageIcon(getClass().getResource("/com/sww/launcher/login/reddit.png")));
+        facebook.setIcon(new ImageIcon(getClass().getResource("/com/sww/launcher/login/facebook.png")));
+        tumblr.setIcon(new ImageIcon(getClass().getResource("/com/sww/launcher/login/tumblr.png")));
+        youtube.setIcon(new ImageIcon(getClass().getResource("/com/sww/launcher/login/youtube.png")));
+        othermedia.setIcon(null);//(new ImageIcon(getClass().getResource("/com/sww/launcher/login/sharethis.png")));
 
-            panel.add(twitter);
-            panel.add(gPlus);
-            panel.add(facebook);
-            panel.add(othermedia);
-            panel.add(othermedia2);
-            panel.add(othermedia3);
-            return loginPanel = panel;
+        twitter.setMinimumSize(new Dimension(twitter.getIcon().getIconWidth(), twitter.getIcon().getIconHeight()));
+        reddit.setMinimumSize(new Dimension(reddit.getIcon().getIconWidth(), reddit.getIcon().getIconHeight()));
+        facebook.setMinimumSize(new Dimension(facebook.getIcon().getIconWidth(), facebook.getIcon().getIconHeight()));
+        tumblr.setMinimumSize(new Dimension(tumblr.getIcon().getIconWidth(), tumblr.getIcon().getIconHeight()));
+        youtube.setMinimumSize(new Dimension(youtube.getIcon().getIconWidth(), youtube.getIcon().getIconHeight()));
+        //othermedia.setMinimumSize(new Dimension(othermedia.getIcon().getIconWidth(), othermedia.getIcon().getIconHeight()));
+
+        GridBagConstraints gridBagConstraints;
+
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
+        gridBagConstraints.ipadx = -8;	//Removes White Space
+        gridBagConstraints.ipady = -8;	//Removes White Space
+        panel.add(twitter, gridBagConstraints);
+
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
+        gridBagConstraints.ipadx = -8;	//Removes White Space
+        gridBagConstraints.ipady = -8;	//Removes White Space
+        panel.add(reddit, gridBagConstraints);
+
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
+        gridBagConstraints.ipadx = -8;	//Removes White Space
+        gridBagConstraints.ipady = -8;	//Removes White Space
+        panel.add(facebook, gridBagConstraints);
+
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
+        gridBagConstraints.ipadx = -8;	//Removes White Space
+        gridBagConstraints.ipady = -8;	//Removes White Space
+        panel.add(tumblr, gridBagConstraints);
+
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 1;	
+        gridBagConstraints.gridy = 1;	
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
+        gridBagConstraints.ipadx = -8;	//Removes White Space
+        gridBagConstraints.ipady = -8;	//Removes White Space
+        panel.add(youtube, gridBagConstraints);
+
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
+        gridBagConstraints.ipadx = -8;	//Removes White Space
+        gridBagConstraints.ipady = -8;	//Removes White Space
+        panel.add(othermedia, gridBagConstraints);
+
+        return panel;
 	}
 	
     /**

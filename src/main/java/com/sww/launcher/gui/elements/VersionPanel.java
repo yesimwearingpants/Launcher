@@ -52,19 +52,6 @@ public class VersionPanel extends Panel {
 		profileButton.addActionListener((ActionEvent e) -> {
 				action();
 		});
-		/*profileInput.addActionListener((ActionEvent e) -> {
-				action();
-				ProfileEvent ev = new ProfileEvent(this);
-		});
-		locationInput.addActionListener((ActionEvent e) -> {
-				action();
-				ProfileEvent ev = new ProfileEvent(this);
-		});
-		selectionInputBox.addActionListener((ActionEvent e) -> {
-				action();
-				ProfileEvent ev = new ProfileEvent(this);
-		});*/
-		
 		add(spacer0);
 		add(profileLabel);
 		add(profileInput);
@@ -79,7 +66,23 @@ public class VersionPanel extends Panel {
 		add(profileButton);
 		add(spacer0);
 	}
-	
+
+	public static JTextField getProfileInput() {
+		return profileInput;
+	}
+
+	public static JTextField getLocationInput() {
+		return locationInput;
+	}
+
+	public static JButton getProfileButton() {
+		return profileButton;
+	}
+
+	public static Combox<String> getSelectionInputBox() {
+		return selectionInputBox;
+	}
+
 	public void action() {
 		ProfileEvent ev = new ProfileEvent(this);
 		if(profileInput.getText() != null) {

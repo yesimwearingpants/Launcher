@@ -1,12 +1,10 @@
 package com.sww.launcher.gui.elements;
 
-import static com.sww.launcher.gui.Window.spacer1;
-import static com.sww.launcher.gui.Window.spacer2;
-import static com.sww.launcher.gui.Window.spacer5;
-
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -24,7 +22,7 @@ public class MainPanel extends Panel {
 	private static JButton settingsButton = new JButton();
 	
 	public MainPanel() {
-		setLayout(new FlowLayout());
+		setLayout(new GridBagLayout());
 
 		profileM.setText("#########");
 		versionM.setText("#########");
@@ -47,21 +45,39 @@ public class MainPanel extends Panel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-		}});
+		}	});
 
-		add(spacer1);
-		add(profileM);
-		add(spacer2);
-		add(versionM);
-		add(spacer2);
-		add(usernameM);
-		add(spacer1);
-		add(spacer5);
-		add(spacer1);
-		add(settingsButton);
+		GridBagConstraints gridBagConstraints;
+
+		gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHEAST;
+        gridBagConstraints.insets = new Insets(4, 0, 0, 0);
+        add(profileM, gridBagConstraints);
+
+		gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHEAST;
+        gridBagConstraints.insets = new Insets(4, 0, 0, 0);
+        add(versionM, gridBagConstraints);
+
+		gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHEAST;
+        gridBagConstraints.insets = new Insets(4, 0, 0, 0);
+        add(usernameM, gridBagConstraints);
+
+		gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHEAST;
+        add(settingsButton, gridBagConstraints);
 	}
 	/**
-	 * @param s text name of the component
+	 * @param s Component Variable Name as a String
 	 * @param t new <code>setText()</code> argument
 	 */
 	public void setLabel(String s, String t) {
