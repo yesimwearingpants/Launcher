@@ -34,7 +34,6 @@ public class Main {
 	public static void main(String[] args) {
 
 		Reference.addVersion();
-		Reference.buildTable();
 		FileEvent c = new FileEvent(Reference.configFile);
 		ProfileEvent p = new ProfileEvent(new Object());
 		c.createFile();

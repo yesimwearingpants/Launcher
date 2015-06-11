@@ -8,7 +8,7 @@ import com.sww.launcher.util.Path;
 public class ProfileEvent extends EventObject {
 	
 	private static String name = "Default";
-	private static Path location = new Path(System.getProperty("user.home"));
+	private static Path location = new Path();
 	private static String version = "0.0.1";
 	private static Boolean bool = Boolean.FALSE;
 

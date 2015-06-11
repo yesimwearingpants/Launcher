@@ -33,7 +33,7 @@ public class TablePanel extends ScrollPane {
 			return false;
 	}	};
 	private static ListTableModel model = new ListTableModel(Reference.Profiles,
-		Reference.TableList);
+		new String[] {"Profile", "Version", "Location", "Active"});
 
 
 	public TablePanel() {

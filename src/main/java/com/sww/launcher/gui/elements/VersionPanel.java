@@ -149,7 +149,7 @@ public class VersionPanel extends Panel {
 				ev.setLocation(new Path(locationInput.getText()));
 			} else {
 				// Default Save Location
-				ev.setLocation(new Path(Reference.SaveLocation));
+				ev.setLocation(new Path());
 			}
 			ev.setVersion(selectionInputBox.getSelectedItem().toString());
 		} else {

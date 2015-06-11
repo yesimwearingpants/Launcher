@@ -24,15 +24,15 @@ import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.util.Iterator;
 
-public class Path implements java.nio.file.Path {
+import com.sww.launcher.reference.Reference;
+
+public final class Path implements java.nio.file.Path { 
+
 	private String path;
-	
-	/** 
-	 * @return the path as a String
-	 */
-	@Override
-	public String toString() {
-		return path;
+
+	/** Default Save Location	*/
+	public Path() {
+		this.path = String.format("%s/%s", System.getProperty("user.home"), Reference.gameDir);
 	}
 
 	/**
@@ -40,6 +40,14 @@ public class Path implements java.nio.file.Path {
 	 */
 	public Path(String path) {
 		this.path = path;
+	}
+	
+	/** 
+	 * @return the path as a String
+	 */
+	@Override
+	public String toString() {
+		return path;
 	}
 
 	/** {@inheritDoc}	 */
@@ -91,7 +99,7 @@ public class Path implements java.nio.file.Path {
 		return 0;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see java.nio.file.Path#getParent()
 	 */
 	@Override
@@ -100,7 +108,7 @@ public class Path implements java.nio.file.Path {
 		return null;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see java.nio.file.Path#getRoot()
 	 */
 	@Override
@@ -130,8 +138,8 @@ public class Path implements java.nio.file.Path {
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.nio.file.Path#register(java.nio.file.WatchService, java.nio.file.WatchEvent.Kind[])
+	/**
+	 * @see java.nio.file.Path#register(WatchService, WatchEvent.Kind[])
 	 */
 	@Override
 	public WatchKey register(WatchService watcher, Kind<?>... events)
@@ -140,8 +148,8 @@ public class Path implements java.nio.file.Path {
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.nio.file.Path#register(java.nio.file.WatchService, java.nio.file.WatchEvent.Kind[], java.nio.file.WatchEvent.Modifier[])
+	/**
+	 * @see java.nio.file.Path#register(WatchService, WatchEvent.Kind[], WatchEvent.Modifier[])
 	 */
 	@Override
 	public WatchKey register(WatchService watcher, Kind<?>[] events,
@@ -150,7 +158,7 @@ public class Path implements java.nio.file.Path {
 		return null;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see java.nio.file.Path#relativize(java.nio.file.Path)
 	 */
 	@Override
@@ -159,7 +167,7 @@ public class Path implements java.nio.file.Path {
 		return null;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see java.nio.file.Path#resolve(java.nio.file.Path)
 	 */
 	@Override
@@ -168,8 +176,8 @@ public class Path implements java.nio.file.Path {
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.nio.file.Path#resolve(java.lang.String)
+	/**
+	 * @see java.nio.file.Path#resolve(String)
 	 */
 	@Override
 	public java.nio.file.Path resolve(String other) {
@@ -177,7 +185,7 @@ public class Path implements java.nio.file.Path {
 		return null;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see java.nio.file.Path#resolveSibling(java.nio.file.Path)
 	 */
 	@Override
@@ -186,8 +194,8 @@ public class Path implements java.nio.file.Path {
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.nio.file.Path#resolveSibling(java.lang.String)
+	/**
+	 * @see java.nio.file.Path#resolveSibling(String)
 	 */
 	@Override
 	public java.nio.file.Path resolveSibling(String other) {
@@ -195,7 +203,7 @@ public class Path implements java.nio.file.Path {
 		return null;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see java.nio.file.Path#startsWith(java.nio.file.Path)
 	 */
 	@Override
@@ -204,8 +212,8 @@ public class Path implements java.nio.file.Path {
 		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.nio.file.Path#startsWith(java.lang.String)
+	/**
+	 * @see java.nio.file.Path#startsWith(String)
 	 */
 	@Override
 	public boolean startsWith(String other) {
@@ -213,7 +221,7 @@ public class Path implements java.nio.file.Path {
 		return false;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see java.nio.file.Path#subpath(int, int)
 	 */
 	@Override
@@ -232,8 +240,8 @@ public class Path implements java.nio.file.Path {
 	/** {@inheritDoc}	 */
 	@Override
 	public File toFile() {
-		
-		return null;
+		java.nio.file.Path f = (java.nio.file.Path)this;
+		return f.toFile();
 	}
 
 	/** {@inheritDoc}	 */
@@ -247,8 +255,8 @@ public class Path implements java.nio.file.Path {
 	/** {@inheritDoc}	 */
 	@Override
 	public URI toUri() {
-		
-		return null;
+		java.nio.file.Path f = (java.nio.file.Path)this;
+		return f.toUri();
 	}
 
 }

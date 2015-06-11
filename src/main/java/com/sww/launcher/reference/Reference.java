@@ -44,10 +44,6 @@ public abstract class Reference {
 	public static HashSet<String> HashSet0 = new HashSet<>();
 	/**	HashSet of Locations as URI	*/
 	public static HashSet<Path> HashSet1 = new HashSet<>();
-	/** Table Columns	*/
-	public static List<String> TableList = new ArrayList<String>();
-	/** Default Save Location	*/
-	public static String SaveLocation = "/";
 	/**	Server List	*/
 	public static List<String> Servers = new ArrayList<String>();
 	/** Game Directory	*/
@@ -56,13 +52,6 @@ public abstract class Reference {
 	public static final File logFile = new File(String.format("%s/Log.%s", gameDir.toString(), new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss").format(new Date(System.currentTimeMillis()))));
 	/** Configuration File	*/
 	public static final File configFile = new File(String.format("%s/Terracraft", gameDir.toString()));
-
-	public static void buildTable() {
-		TableList.add("Profile");
-		TableList.add("Version");
-		TableList.add("Location");
-		TableList.add("Active");
-	}
 
 	public static void addVersion() {
 		Versions.add("0.0.1");

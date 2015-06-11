@@ -27,6 +27,15 @@ public class Profile {
 		this.version = version;
 		this.location = location;
 	}
+	
+	public Object get(int i) {
+		switch (i) {
+			case 0: return name;
+			case 1: return version;
+			case 2: return location;
+			default : return Boolean.FALSE;
+		}
+	}
 
 	/**
 	 * @return the name

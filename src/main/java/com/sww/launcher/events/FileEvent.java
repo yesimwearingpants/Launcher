@@ -84,7 +84,7 @@ public class FileEvent {
 	 */
 	public void addLine(String n, String v, Path l) {
 		try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true))) {
-			bufferedWriter.write(String.format("%s\t%s\t%s\t%s\n", n, v, l.toString()));
+			bufferedWriter.write(String.format("%s\t%s\t%s\n", n, v, l.toString()));
         }
         catch(IOException e) {
             System.out.printf("Error writing to file '%s'\n\n", file);
@@ -101,7 +101,7 @@ public class FileEvent {
 		while(it.hasNext()) {
 			Profile list = it.next();
 			try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(tmp, true))) {
-				bufferedWriter.write(String.format("%s\t%s\t%s\t%s\n", list.getName(), list.getVersion(), list.getLocation()));
+				bufferedWriter.write(String.format("%s\t%s\t%s\n", list.getName(), list.getVersion(), list.getLocation()));
 	        }
 	        catch(IOException e) {
 	            System.out.printf("Error writing to file '%s'\n\n", file);
