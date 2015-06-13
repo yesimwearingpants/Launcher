@@ -39,6 +39,7 @@ public class Main {
 		ProfileEvent p = new ProfileEvent(new Object());
 		c.createFile();
 		if(Reference.configFile.length() == 0) {
+			c.setActiveProfile(0);
 			c.addLine(p.getName(), p.getVersion(), p.getLocation());
 			c.readFile();
 		} else {
