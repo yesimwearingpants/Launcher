@@ -13,11 +13,9 @@
  */
 package com.sww.launcher.events;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
@@ -28,7 +26,9 @@ import com.sww.launcher.util.Path;
 import com.sww.launcher.util.Profile;
 
 public class FileEvent {
-	
+
+	private File file;
+
 	/**
 	 * @param file <br>Takes in a File</br>
 	 */
@@ -36,8 +36,6 @@ public class FileEvent {
 		this.file = file;
 	}
 
-	private File file;
-	
 	public void createFile() {
 		boolean r;
 		if(!Reference.gameDir.exists()) {
@@ -75,6 +73,16 @@ public class FileEvent {
 		}
 	}
 	
+	public void setActiveProfile(int i) {
+		try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true))) {
+			bufferedWriter.write(String.format("%d\n", i));
+        }
+        catch(IOException e) {
+            System.out.printf("Error writing to file '%s'\n\n", file);
+            e.printStackTrace();
+        }
+	}
+	
 	/**
 	 * Adds a new entry to File file
 	 * @param n Profile Name
@@ -97,6 +105,7 @@ public class FileEvent {
 	public void editFile() {
 		File tmp = new File(String.format("%s/tmp", Reference.gameDir.toString()));
 		createFile(tmp);
+		setActiveProfile(Reference.ActiveProfile);
 		Iterator<Profile> it = Reference.Profiles.iterator();
 		while(it.hasNext()) {
 			Profile list = it.next();
@@ -114,24 +123,21 @@ public class FileEvent {
 
 	public void readFile() {
 		String line;
-		try (BufferedReader reader = new BufferedReader(new FileReader(file))){
-	        try (Scanner s = new Scanner(Reference.configFile)) {
-	            while(s.hasNextLine()) {
-		            line = reader.readLine();
-	            	String array[] = line.split("\t");
-	            	Profile profile = new Profile(array[0], array[1], new Path(array[2]));
-		            Reference.Profiles.add(profile);
-		            Reference.HashSet0.add(array[0]);
-		            Reference.HashSet1.add(new Path(array[2]));
-		            s.nextLine();
-	        	}
-	            reader.close();
+        try (Scanner s = new Scanner(file)) {
+        	String intt = s.nextLine();
+            Reference.ActiveProfile = Integer.parseInt(intt);
+            while(s.hasNextLine()) {
+	            line = s.nextLine();
+	            System.out.println(line);
+            	String array[] = line.split("\t");
+            	Profile profile = new Profile(array[0], array[1], new Path(array[2]));
+	            Reference.Profiles.add(profile);
+	            Reference.HashSet0.add(array[0]);
+	            Reference.HashSet1.add(new Path(array[2]));
 	        }
 		} catch (FileNotFoundException e) {
             System.out.printf("File '%s' not found\n\n", file);
             e.printStackTrace();
-		} catch(IOException ex) {
-        	ex.printStackTrace();
         }
 	}
 
