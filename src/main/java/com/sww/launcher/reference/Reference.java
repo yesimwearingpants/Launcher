@@ -15,6 +15,8 @@
 package com.sww.launcher.reference;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,7 +24,6 @@ import java.util.HashSet;
 import java.util.List;
 
 import com.sww.launcher.util.ListSet;
-import com.sww.launcher.util.Path;
 import com.sww.launcher.util.Profile;
 
 public abstract class Reference {
@@ -47,11 +48,11 @@ public abstract class Reference {
 	/**	Server List	*/
 	public static List<String> Servers = new ArrayList<String>();
 	/** Game Directory	*/
-	public static final File gameDir = new File(".Terracraft");
+	public static final Path gameDir = Paths.get(".Terracraft");
 	/** Logger File	*/
-	public static final File logFile = new File(String.format("%s/Log.%s", gameDir.toString(), new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss").format(new Date(System.currentTimeMillis()))));
+	public static final File logFile = new File(String.format("/Log.%s", new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss").format(new Date(System.currentTimeMillis()))));
 	/** Configuration File	*/
-	public static final File configFile = new File(String.format("%s/Terracraft", gameDir.toString()));
+	public static final File configFile = new File("/Terracraft");
 
 	public static void addVersion() {
 		Versions.add("0.0.1");

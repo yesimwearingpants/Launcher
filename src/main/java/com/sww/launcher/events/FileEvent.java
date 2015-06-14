@@ -38,10 +38,10 @@ public class FileEvent {
 
 	public void createFile() {
 		boolean r;
-		if(!Reference.gameDir.exists()) {
+		if(!Reference.gameDir.toFile().exists()) {
 			r = false;
 			try {
-				Reference.gameDir.mkdir();
+				Reference.gameDir.toFile().mkdir();
 				r = true;
 			} catch (SecurityException e) {
 				System.out.printf("Incorrect Permissionson on %s\n", Reference.gameDir.toString());

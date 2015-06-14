@@ -1,14 +1,17 @@
 package com.sww.launcher.events;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.EventObject;
 
-import com.sww.launcher.util.Path;
+import com.sww.launcher.reference.Reference;
+
 
 @SuppressWarnings("serial")
 public class ProfileEvent extends EventObject {
 	
 	private static String name = "Default";
-	private static Path location = new Path();
+	private static Path location = Paths.get(String.format("%s/%s", System.getProperty("user.home"), Reference.gameDir));
 	private static String version = "0.0.1";
 	private static Boolean bool = Boolean.FALSE;
 
