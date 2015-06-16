@@ -58,7 +58,7 @@ public abstract class Reference {
 	public static Profile GetActiveProfile() {
 		return Profiles.get(ActiveProfile);
 	}
-	
+
 	public static void addVersion() {
 		Versions.add("0.0.1");
 		Versions.add("0.0.2");

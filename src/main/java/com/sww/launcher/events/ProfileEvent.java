@@ -6,6 +6,7 @@ import java.util.EventObject;
 
 import com.sww.launcher.reference.Reference;
 
+
 @SuppressWarnings("serial")
 public class ProfileEvent extends EventObject {
 	

@@ -60,10 +60,10 @@ public class FileEvent {
 				r = true;
 			} catch (FileAlreadyExistsException e) {
 				e.printStackTrace();
-			} catch (SecurityException e) {
+			} catch(SecurityException e) {
 				System.out.printf(i18n.lang.getString("ePermission"), Reference.gameDir.toString());
 				System.out.println(e.getMessage());
-			} catch (IOException e) {
+			} catch(IOException e) {
 				e.printStackTrace();
 			}
 		} else {
@@ -90,7 +90,7 @@ public class FileEvent {
             e.printStackTrace();
         }
 	}
-	
+
 	/**
 	 * Adds a new entry to File file
 	 * @param n Profile Name
@@ -135,15 +135,12 @@ public class FileEvent {
 	            line = s.nextLine();
 	            System.out.println(line);
             	String array[] = line.split("\t");
-            	if(array[2].equals(userhome)) {
-            		array[2] = System.getProperty("user.home");
-            	}
             	Profile profile = new Profile(array[0], array[1], Paths.get(array[2]));
 	            Reference.Profiles.add(profile);
 	            Reference.HashSet0.add(array[0]);
 	            Reference.HashSet1.add(Paths.get(array[2]));
 	        }
-		} catch (FileNotFoundException e) {
+		} catch(FileNotFoundException e) {
             System.out.printf(i18n.lang.getString("eNotFound"), file);
             e.printStackTrace();
         }

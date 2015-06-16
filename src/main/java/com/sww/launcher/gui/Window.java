@@ -66,22 +66,23 @@ public class Window extends JFrame {
 	private FileEvent c = new FileEvent(Reference.configFile);
 
 	private static JSeparator separator1 = new JSeparator();
-	private static JTabbedPane tab1 = new JTabbedPane(), tab2 = new JTabbedPane();
-	//private static JTabbedPane tab2;
+	private static JTabbedPane tab1 = new JTabbedPane();
+	private static JTabbedPane tab2 = new JTabbedPane();
 	private static MainPanel mainPanel = new MainPanel();
 	private static Panel loginPanel = new LoginPanel(/*login, password, user*/).createPanel();
 	private static VersionPanel versionPanel = new VersionPanel();
 	private static NewsPanel newsPanel = new NewsPanel();
 	private static TablePanel tablePanel = new TablePanel();
 	private static ConsolePanel consolePanel = new ConsolePanel();
-	private static JButton playButton = new JButton(), closeButton = new JButton();
+	private static JButton playButton = new JButton();
+	private static JButton closeButton = new JButton();
 	private static Panel buttonPanel = new Panel();
 	private static int yy = 174;
 
 	protected Container contentPane = getContentPane();
 
 	public Window() {
-		super(Reference.TITLE + " " + Reference.VERSION);
+		super(String.format("%s %s", Reference.TITLE, Reference.VERSION));
 
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setSize(x, y);
@@ -91,6 +92,27 @@ public class Window extends JFrame {
 		addActions();
 		init();
 	}
+
+	@Override
+    public void setDefaultCloseOperation(int operation) {
+		Reference.logFile.delete();
+        if (operation != DO_NOTHING_ON_CLOSE && operation != HIDE_ON_CLOSE && 
+        		operation != DISPOSE_ON_CLOSE &&  operation != EXIT_ON_CLOSE) {
+            throw new IllegalArgumentException("defaultCloseOperation must be one of: DO_NOTHING_ON_CLOSE, HIDE_ON_CLOSE, DISPOSE_ON_CLOSE, or EXIT_ON_CLOSE");
+        }
+
+        if (operation == EXIT_ON_CLOSE) {
+            SecurityManager security = System.getSecurityManager();
+            if (security != null) {
+                security.checkExit(0);
+            }
+        }
+        if (getDefaultCloseOperation() != operation) {
+            int oldValue = getDefaultCloseOperation();
+            setDefaultCloseOperation(operation);
+            firePropertyChange("defaultCloseOperation", oldValue, operation);
+        }
+    }
 
 	private void addActions() {
 		contentPane.addMouseListener(new MouseAdapter() {
@@ -138,9 +160,6 @@ public class Window extends JFrame {
 					if(VersionPanel.getProfileButton().getText().equals(i18n.lang.getString("editProfile"))) {
 						MouseEventExt ev = new MouseEventExt(Var.getComponent(), Var.getId(), Var.getWhen(),
 							Var.getModifiers(), Var.getX(), Var.getY(), Var.getClickcount(), Var.getButton());
-						//bool0 = profile.setName(p.getName());
-						//profile.setVersion(p.getVersion());
-						//bool1 = profile.setLocation(p.getLocation());
 						if(!Reference.Profiles.addAsBoolean(ev.getRowInt(), profile)) {
 							versionPanel.setValid(true);
 							try {
@@ -154,6 +173,9 @@ public class Window extends JFrame {
 						VersionPanel.getProfileButton().setText(i18n.lang.getString("newProfile"));
 						mainPanel.setLabel(mainPanel.getProfileM(), p.getName());
 						mainPanel.setLabel(mainPanel.getVersionM(), p.getVersion());
+						VersionPanel.getProfileInput().setText("");
+						VersionPanel.getLocationInput().setText("");
+						VersionPanel.getSelectionInputBox().setSelectedIndex(Reference.Profiles.size()-1);
 					} else {
 						mainPanel.setLabel(mainPanel.getProfileM(), p.getName());
 						mainPanel.setLabel(mainPanel.getVersionM(), p.getVersion());
@@ -180,7 +202,7 @@ public class Window extends JFrame {
 						VersionPanel.getProfileButton().setText(i18n.lang.getString("editProfile"));
 						VersionPanel.getProfileInput().setText((String) MouseEventExt.getRowList().getName());
 						VersionPanel.getLocationInput().setText((String) MouseEventExt.getRowList().getLocation().toString());
-						VersionPanel.getSelectionInputBox().setSelectedIndex(MouseEventExt.d0());
+						VersionPanel.getSelectionInputBox().setSelectedItem(MouseEventExt.getRowList().getVersion());
 				}	}
 		}	});
         separator1.addMouseMotionListener(new MouseMotionAdapter() {

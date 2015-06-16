@@ -46,18 +46,6 @@ public class MouseEventExt extends MouseEvent {
 		return list;
 	}
 
-	public static int d0() {
-		if(list != null) {
-			String string = list.getVersion();
-			int i = 0;
-			while (!string.equals(Reference.Versions.get(i)) && i < (Reference.Versions.size()-1)) {
-				 i++;
-			}
-			return i;
-		}
-		return 0;
-	}
-
 	public static class Var {
 		private static Component component;
 		private static long when;
