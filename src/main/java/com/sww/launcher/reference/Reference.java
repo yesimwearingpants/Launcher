@@ -15,6 +15,8 @@
 package com.sww.launcher.reference;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,7 +24,6 @@ import java.util.HashSet;
 import java.util.List;
 
 import com.sww.launcher.util.ListSet;
-import com.sww.launcher.util.Path;
 import com.sww.launcher.util.Profile;
 
 import static com.sww.launcher.Main.i18n;
@@ -37,36 +38,27 @@ public abstract class Reference {
 	public static List<String> Versions = new ArrayList<>();
 	/**	Line Number of Currently Active Profile	*/
 	public static int ActiveProfile;
-	/**	Returns the Active Profile	*/
-	public static Profile GetActiveProfile() {
-		return Profiles.get(ActiveProfile);
-	}
 	/**	List Containing Table Rows	*/
 	public static ListSet<Profile> Profiles = new ListSet<>();
 	/**	HastSet of Profile Names	*/
 	public static HashSet<String> HashSet0 = new HashSet<>();
-	/**	HashSet of Locations as URI	*/
+	/**	HashSet of Locations as Path	*/
 	public static HashSet<Path> HashSet1 = new HashSet<>();
-	/** Table Columns	*/
-	public static List<String> TableList = new ArrayList<String>();
-	/** Default Save Location	*/
-	public static String SaveLocation = "/";
 	/**	Server List	*/
 	public static List<String> Servers = new ArrayList<String>();
+	/**	Default Save Location	*/
+	public static final Path rootDir = Paths.get(System.getProperty("user.home"));
 	/** Game Directory	*/
-	public static final File gameDir = new File(".Terracraft");
+	public static final Path gameDir = Paths.get("/.Terracraft");
 	/** Logger File	*/
-	public static final File logFile = new File(String.format("%s/Log.%s", gameDir.toString(), new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss").format(new Date(System.currentTimeMillis()))));
+	public static final File logFile = Paths.get(String.format("%s%s/Log.%s", rootDir, gameDir, new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss").format(new Date(System.currentTimeMillis())))).toFile();
 	/** Configuration File	*/
-	public static final File configFile = new File(String.format("%s/Terracraft", gameDir.toString()));
-
-	public static void buildTable() {
-		TableList.add(i18n.lang.getString("profile"));
-		TableList.add(i18n.lang.getString("version"));
-		TableList.add(i18n.lang.getString("location"));
-		TableList.add(i18n.lang.getString("active"));
+	public static final File configFile = Paths.get(String.format("%s%s/Terracraft", rootDir, gameDir)).toFile();
+	/**	Returns the Active Profile	*/
+	public static Profile GetActiveProfile() {
+		return Profiles.get(ActiveProfile);
 	}
-
+	
 	public static void addVersion() {
 		Versions.add("0.0.1");
 		Versions.add("0.0.2");

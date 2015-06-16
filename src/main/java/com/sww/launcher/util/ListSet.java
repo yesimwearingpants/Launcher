@@ -16,6 +16,7 @@ package com.sww.launcher.util;
 import static com.sww.launcher.reference.Reference.HashSet0;
 import static com.sww.launcher.reference.Reference.HashSet1;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 import com.sww.launcher.events.FileEvent;
@@ -68,6 +69,6 @@ public class ListSet<E> extends ArrayList<E> {
 		HashSet1.clear();
 		Reference.configFile.delete();
 		FileEvent f = new FileEvent(Reference.configFile);
-		f.createFile();
+		f.createFile(Reference.configFile);
 	}
 }

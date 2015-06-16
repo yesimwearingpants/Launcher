@@ -66,16 +66,15 @@ public class Window extends JFrame {
 	private FileEvent c = new FileEvent(Reference.configFile);
 
 	private static JSeparator separator1 = new JSeparator();
-	private static JTabbedPane tab1 = new JTabbedPane();
-	private static JTabbedPane tab2 = new JTabbedPane();
+	private static JTabbedPane tab1 = new JTabbedPane(), tab2 = new JTabbedPane();
+	//private static JTabbedPane tab2;
 	private static MainPanel mainPanel = new MainPanel();
 	private static Panel loginPanel = new LoginPanel(/*login, password, user*/).createPanel();
 	private static VersionPanel versionPanel = new VersionPanel();
 	private static NewsPanel newsPanel = new NewsPanel();
 	private static TablePanel tablePanel = new TablePanel();
 	private static ConsolePanel consolePanel = new ConsolePanel();
-	private static JButton playButton = new JButton();
-	private static JButton closeButton = new JButton();
+	private static JButton playButton = new JButton(), closeButton = new JButton();
 	private static Panel buttonPanel = new Panel();
 	private static int yy = 174;
 
@@ -89,12 +88,7 @@ public class Window extends JFrame {
 		setResizable(false);
 		setIconImage(new ImageIcon(getClass().getResource("/com/sww/launcher/icon.png")).getImage());
 		contentPane.setLayout(null);
-		Thread thread0 = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				addActions();
-		}	});
-		thread0.start();
+		addActions();
 		init();
 	}
 
