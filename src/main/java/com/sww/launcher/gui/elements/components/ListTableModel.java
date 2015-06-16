@@ -17,7 +17,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
 
 import com.sww.launcher.util.Profile;
@@ -33,14 +32,14 @@ public class ListTableModel extends AbstractTableModel implements Serializable {
 
 
     public ListTableModel(List data, Object[] columnNames) {
-        setDataVector(data, columnNames);
+        setData(data, columnNames);
     }
 
-    public List getDataVector() {
+    public List getData() {
         return dataVector;
     }
 
-    private static List nonNullVector(List list) {
+    private static List nonNullList(List list) {
         return (list != null) ? list : new ArrayList<>();
     }
     
@@ -48,15 +47,11 @@ public class ListTableModel extends AbstractTableModel implements Serializable {
     	return (o != null) ? o : new Object[] {};
     }
 
-    public void setDataVector(List<Profile> list, Object[] columnNames) {
-        this.dataVector = nonNullVector(list);
+    public void setData(List<Profile> list, Object[] columnNames) {
+        this.dataVector = nonNullList(list);
         this.columnIdentifiers = nonNullArray(columnNames);
         justifyRows(0, getRowCount());
         fireTableStructureChanged();
-    }
-
-    public void newDataAvailable(TableModelEvent event) {
-        fireTableChanged(event);
     }
 
     private void justifyRows(int from, int to) {
@@ -69,92 +64,12 @@ public class ListTableModel extends AbstractTableModel implements Serializable {
         }
     }
 
-    public void setNumRows(int rowCount) {
-        int old = getRowCount();
-        if (old == rowCount) {
-            return;
-        }
-        if (rowCount <= old) {
-            fireTableRowsDeleted(rowCount, old-1);
-        }
-        else {
-            justifyRows(old, rowCount);
-            fireTableRowsInserted(old, rowCount-1);
-        }
-    }
-
-    public void setRowCount(int rowCount) {
-        setNumRows(rowCount);
-    }
-
-    private static int gcd(int i, int j) {
-        return (j == 0) ? i : gcd(j, i%j);
-    }
-
-    private static List rotate(List v, int a, int b, int shift) {
-        int size = b - a;
-        int r = size - shift;
-        int g = gcd(size, r);
-        for(int i = 0; i < g; i++) {
-            int to = i;
-            Object tmp = v.get(a + to);
-            for(int from = (to + r) % size; from != i; from = (to + r) % size) {
-                v.set((a + to), v.get(a + from));
-                to = from;
-            }
-            v.set(a + to, tmp);
-        }
-        return v;
-    }
-
-    public void moveRow(int start, int end, int to) {
-        int shift = to - start;
-        int first, last;
-        if (shift < 0) {
-            first = to;
-            last = end;
-        }
-        else {
-            first = start;
-            last = to + end - start;
-        }
-        rotate(dataVector, first, last + 1, shift);
-
-        fireTableRowsUpdated(first, last);
-    }
-
-    public void removeRow(int row) {
-        dataVector.remove(row);
-        fireTableRowsDeleted(row, row);
-    }
-
     public void setColumnIdentifiers(Object[] columnIdentifiers) {
-        setDataVector(dataVector, columnIdentifiers);
+        setData(dataVector, columnIdentifiers);
     }
 
     public void setColumnCount(int columnCount) {
         justifyRows(0, getRowCount());
-        fireTableStructureChanged();
-    }
-
-    public void addColumn(Object columnName) {
-        addColumn(columnName, (List)null);
-    }
-
-    public void addColumn(Object columnName, List columnData) {
-        if (columnData != null) {
-            int columnSize = columnData.size();
-            justifyRows(0, getRowCount());
-            int newColumn = getColumnCount() - 1;
-            for(int i = 0; i < columnSize; i++) {
-                  List row = (List)dataVector.get(i);
-                  row.set(newColumn, columnData.get(i));
-            }
-        }
-        else {
-            justifyRows(0, getRowCount());
-        }
-
         fireTableStructureChanged();
     }
 
@@ -164,17 +79,6 @@ public class ListTableModel extends AbstractTableModel implements Serializable {
 
     public int getColumnCount() {
         return columnIdentifiers.length;
-    }
-
-    public String getColumnName(int column) {
-        Object id = null;
-        // This test is to cover the case when
-        // getColumnCount has been subclassed by mistake ...
-        if (column < columnIdentifiers.length && (column >= 0)) {
-            id = columnIdentifiers[column];
-        }
-        return (id == null) ? super.getColumnName(column)
-                            : id.toString();
     }
 
     public boolean isCellEditable(int row, int column) {

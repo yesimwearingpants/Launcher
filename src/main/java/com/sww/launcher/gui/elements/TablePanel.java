@@ -13,6 +13,8 @@
  */
 package com.sww.launcher.gui.elements;
 
+import static com.sww.launcher.Main.i18n;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -33,7 +35,8 @@ public class TablePanel extends ScrollPane {
 			return false;
 	}	};
 	private static ListTableModel model = new ListTableModel(Reference.Profiles,
-		new String[] {"Profile", "Version", "Location", "Active"});
+		new String[] {i18n.lang.getString("profile"), i18n.lang.getString("version"),
+			i18n.lang.getString("location"), i18n.lang.getString("active")});
 
 
 	public TablePanel() {
