@@ -25,9 +25,12 @@ import com.sww.launcher.util.ListSet;
 import com.sww.launcher.util.Path;
 import com.sww.launcher.util.Profile;
 
+import static com.sww.launcher.Main.i18n;
+
 public abstract class Reference {
+
 	/**	Application (Launcher) Title	*/
-	public static final String TITLE = "Terracraft Launcher";
+	public static final String TITLE = String.format("%s%s", i18n.lang.getString("game"), i18n.lang.getString("launcher"));
 	/**	Application (Launcher) Version	*/	
 	public static final String VERSION = "0.1";
 	/**	Game Versions	*/
@@ -58,10 +61,10 @@ public abstract class Reference {
 	public static final File configFile = new File(String.format("%s/Terracraft", gameDir.toString()));
 
 	public static void buildTable() {
-		TableList.add("Profile");
-		TableList.add("Version");
-		TableList.add("Location");
-		TableList.add("Active");
+		TableList.add(i18n.lang.getString("profile"));
+		TableList.add(i18n.lang.getString("version"));
+		TableList.add(i18n.lang.getString("location"));
+		TableList.add(i18n.lang.getString("active"));
 	}
 
 	public static void addVersion() {

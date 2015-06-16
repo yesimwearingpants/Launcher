@@ -27,6 +27,9 @@ import com.sww.launcher.reference.Reference;
 import com.sww.launcher.util.Path;
 import com.sww.launcher.util.Profile;
 
+import static com.sww.launcher.Main.i18n;
+
+
 public class FileEvent {
 	
 	/**
@@ -46,7 +49,7 @@ public class FileEvent {
 				Reference.gameDir.mkdir();
 				r = true;
 			} catch (SecurityException e) {
-				System.out.printf("Incorrect Permissionson on %s\n", Reference.gameDir.toString());
+				System.out.printf(i18n.lang.getString("ePermission"), Reference.gameDir.toString());
 				System.out.println(e.getMessage());
 			}
 		} else {
@@ -57,7 +60,7 @@ public class FileEvent {
 				try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))){
 		        }
 		        catch(IOException e) {
-		            System.out.printf("Error creating file '%s'\n\n", file);
+		            System.out.printf(i18n.lang.getString("eCreate"), file);
 		            e.printStackTrace();
 		        }
 			}
@@ -69,7 +72,7 @@ public class FileEvent {
 			try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(f))){
 	        }
 	        catch(IOException e) {
-	            System.out.printf("Error creating file '%s'\n\n", f);
+	            System.out.printf(i18n.lang.getString("eCreate"), f);
 	            e.printStackTrace();
 	        }
 		}
@@ -87,7 +90,7 @@ public class FileEvent {
 			bufferedWriter.write(String.format("%s\t%s\t%s\t%s\n", n, v, l.toString()));
         }
         catch(IOException e) {
-            System.out.printf("Error writing to file '%s'\n\n", file);
+            System.out.printf(i18n.lang.getString("eWrite"), file);
             e.printStackTrace();
         }
 	}
@@ -104,7 +107,7 @@ public class FileEvent {
 				bufferedWriter.write(String.format("%s\t%s\t%s\t%s\n", list.getName(), list.getVersion(), list.getLocation()));
 	        }
 	        catch(IOException e) {
-	            System.out.printf("Error writing to file '%s'\n\n", file);
+	            System.out.printf(i18n.lang.getString("eWrite"), file);
 	            e.printStackTrace();
 	        }
 		}
@@ -128,7 +131,7 @@ public class FileEvent {
 	            reader.close();
 	        }
 		} catch (FileNotFoundException e) {
-            System.out.printf("File '%s' not found\n\n", file);
+            System.out.printf(i18n.lang.getString("eNotFound"), file);
             e.printStackTrace();
 		} catch(IOException ex) {
         	ex.printStackTrace();

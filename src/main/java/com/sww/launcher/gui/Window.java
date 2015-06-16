@@ -47,6 +47,8 @@ import com.sww.launcher.util.login.Login;
 import com.sww.launcher.util.login.Password;
 import com.sww.launcher.util.login.User;
 
+import static com.sww.launcher.Main.i18n;
+
 public class Window extends JFrame {
 
 	private static final long serialVersionUID = -8477483526358458395L;
@@ -139,7 +141,7 @@ public class Window extends JFrame {
 				if(versionPanel.getIListener() != null) {
 					ProfileEvent p = new ProfileEvent(e);
 					Profile profile = new Profile(p.getName(), p.getVersion(), p.getLocation());
-					if(VersionPanel.getProfileButton().getText().equals("Edit Profile")) {
+					if(VersionPanel.getProfileButton().getText().equals(i18n.lang.getString("editProfile"))) {
 						MouseEventExt ev = new MouseEventExt(Var.getComponent(), Var.getId(), Var.getWhen(),
 							Var.getModifiers(), Var.getX(), Var.getY(), Var.getClickcount(), Var.getButton());
 						//bool0 = profile.setName(p.getName());
@@ -155,7 +157,7 @@ public class Window extends JFrame {
 						}
 						c.editFile();
 						TablePanel.tableChanged();
-						VersionPanel.getProfileButton().setText("Add New Profile");
+						VersionPanel.getProfileButton().setText(i18n.lang.getString("newProfile"));
 						mainPanel.setLabel(mainPanel.getProfileM(), p.getName());
 						mainPanel.setLabel(mainPanel.getVersionM(), p.getVersion());
 					} else {
@@ -181,7 +183,7 @@ public class Window extends JFrame {
 						c.editFile();
 						TablePanel.tableChanged();
 					} else {
-						VersionPanel.getProfileButton().setText("Edit Profile");
+						VersionPanel.getProfileButton().setText(i18n.lang.getString("editProfile"));
 						VersionPanel.getProfileInput().setText((String) MouseEventExt.getRowList().getName());
 						VersionPanel.getLocationInput().setText((String) MouseEventExt.getRowList().getLocation().toString());
 						VersionPanel.getSelectionInputBox().setSelectedIndex(MouseEventExt.d0());
@@ -207,15 +209,15 @@ public class Window extends JFrame {
 
 	private void init() {
 
-        tab1.addTab("Main", mainPanel);
-        tab1.addTab("Login", loginPanel);
-        tab1.addTab("Version", versionPanel);
-        tab2.addTab("News", newsPanel);
-        tab2.addTab("Profiles", tablePanel);
-        tab2.addTab("Console", consolePanel);
+        tab1.addTab(i18n.lang.getString("tMain"), mainPanel);
+        tab1.addTab(i18n.lang.getString("tLogin"), loginPanel);
+        tab1.addTab(i18n.lang.getString("tVersion"), versionPanel);
+        tab2.addTab(i18n.lang.getString("tNews"), newsPanel);
+        tab2.addTab(i18n.lang.getString("tProfiles"), tablePanel);
+        tab2.addTab(i18n.lang.getString("tConsole"), consolePanel);
 
-        playButton.setText("Play");
-        closeButton.setText("Close");
+        playButton.setText(i18n.lang.getString("play"));
+        closeButton.setText(i18n.lang.getString("close"));
 
         GroupLayout bpLayout = new GroupLayout(buttonPanel);
         buttonPanel.setLayout(bpLayout);
