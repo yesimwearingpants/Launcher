@@ -30,6 +30,8 @@ import javax.swing.WindowConstants;
 
 import com.sww.launcher.gui.elements.components.Panel;
 
+import static com.sww.launcher.Main.i18n;
+
 @SuppressWarnings("serial")
 public class MainPanel extends Panel {
 
@@ -48,7 +50,7 @@ public class MainPanel extends Panel {
 		profileM.setText("#########");
 		versionM.setText("#########");
 		usernameM.setText("#########");
-		settingsButton.setText("Settings");
+		settingsButton.setText(i18n.lang.getString("settings"));
 
 		profileM.setMinimumSize(new Dimension(120, 15));
 		versionM.setMinimumSize(new Dimension(120, 15));

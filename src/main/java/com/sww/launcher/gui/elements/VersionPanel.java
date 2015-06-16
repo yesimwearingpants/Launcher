@@ -29,6 +29,8 @@ import com.sww.launcher.gui.elements.components.Panel;
 import com.sww.launcher.reference.Reference;
 import com.sww.launcher.util.Path;
 
+import static com.sww.launcher.Main.i18n;
+
 @SuppressWarnings("serial")
 public class VersionPanel extends Panel {
 
@@ -45,11 +47,11 @@ public class VersionPanel extends Panel {
 	public VersionPanel() {
 
 		setLayout(new GridBagLayout());
-		profileLabel.setText("Name:  ");
-		locationLabel.setText("Location:  ");
-		versionLabel.setText("Version:  ");
-		profileButton.setText("Add New Profile");
-		errorMessage.setText("Profile already in use");
+		profileLabel.setText(String.format("%s:  ", i18n.lang.getString("pName")));
+		locationLabel.setText(String.format("%s:  ", i18n.lang.getString("location")));
+		versionLabel.setText(String.format("%s:  ", i18n.lang.getString("version")));
+		profileButton.setText(i18n.lang.getString("newProfile"));
+		errorMessage.setText(i18n.lang.getString("eInUse"));
 
 		errorMessage.setVisible(valid);
 

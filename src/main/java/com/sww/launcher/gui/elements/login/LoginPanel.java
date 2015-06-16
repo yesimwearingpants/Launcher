@@ -31,9 +31,8 @@ import org.jdesktop.swingx.JXHyperlink;
 import com.sww.launcher.gui.elements.components.Combox;
 import com.sww.launcher.gui.elements.components.Panel;
 
-/**
- * @author namae
- */
+import static com.sww.launcher.Main.i18n;
+
 @SuppressWarnings("serial")
 public class LoginPanel extends Panel {
     private Panel loginPanel;
@@ -79,7 +78,7 @@ public class LoginPanel extends Panel {
         firstPanel.add(errorMessageLabel, gridBagConstraints);
 
         usernameLabel.setFont(new Font("Dialog", 1, 12));
-        usernameLabel.setText("Username");
+        usernameLabel.setText(i18n.lang.getString("username"));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -88,7 +87,7 @@ public class LoginPanel extends Panel {
         gridBagConstraints.insets = new Insets(12, 15, 0, 0);
         firstPanel.add(usernameLabel, gridBagConstraints);
 
-        passwordLabel.setText("Password");
+        passwordLabel.setText(i18n.lang.getString("password"));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -135,7 +134,7 @@ public class LoginPanel extends Panel {
         firstPanel.add(passwordField, gridBagConstraints);
 
         forgotPassword.setFont(new Font("Dialog", 1, 10)); // NOI18N
-        forgotPassword.setText("Forgot Password?");
+        forgotPassword.setText(i18n.lang.getString("forgot"));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 5;
@@ -143,7 +142,7 @@ public class LoginPanel extends Panel {
         firstPanel.add(forgotPassword, gridBagConstraints);
 
         saveCB.setFont(new Font("Dialog", 1, 10)); // NOI18N
-        saveCB.setText("Save Login");
+        saveCB.setText(i18n.lang.getString("saveLogin"));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 5;
@@ -163,7 +162,7 @@ public class LoginPanel extends Panel {
         secondPanel.setLayout(new GridBagLayout());
 
         if(servers != null && servers.size() > 1) {
-            serverLabel.setText("Login Server");
+            serverLabel.setText(i18n.lang.getString("server"));
             gridBagConstraints = new GridBagConstraints();
             gridBagConstraints.gridx = 8;
             gridBagConstraints.gridy = 0;
@@ -187,7 +186,7 @@ public class LoginPanel extends Panel {
             gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
             secondPanel.add(serverCombo, gridBagConstraints);
 
-            loginButton.setText("Login");
+            loginButton.setText(i18n.lang.getString("login"));
             loginButton.setPreferredSize(new Dimension(95, 30));
             gridBagConstraints = new GridBagConstraints();
             gridBagConstraints.gridx = 7;
@@ -217,7 +216,7 @@ public class LoginPanel extends Panel {
             secondPanel.add(innerPanel, gridBagConstraints);
             
         } else {
-            loginButton.setText("Login");
+            loginButton.setText(i18n.lang.getString("login"));
             loginButton.setPreferredSize(new Dimension(95, 30));
             gridBagConstraints = new GridBagConstraints();
             gridBagConstraints.gridx = 7;

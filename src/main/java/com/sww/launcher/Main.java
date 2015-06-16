@@ -24,12 +24,14 @@ import com.sww.launcher.events.FileEvent;
 import com.sww.launcher.events.ProfileEvent;
 import com.sww.launcher.gui.Window;
 import com.sww.launcher.reference.Reference;
+import com.sww.launcher.util.I18n;
 
 
 public class Main {
-		
+
+	public static I18n i18n = new I18n();
 	boolean isLauncherOpen = false;
-	boolean isGameRunning = false;	
+	boolean isGameRunning = false;
 
 	public static void main(String[] args) {
 
