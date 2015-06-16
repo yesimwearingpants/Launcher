@@ -18,6 +18,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
+import java.nio.file.Paths;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -27,7 +28,6 @@ import com.sww.launcher.events.ProfileEvent;
 import com.sww.launcher.gui.elements.components.Combox;
 import com.sww.launcher.gui.elements.components.Panel;
 import com.sww.launcher.reference.Reference;
-import com.sww.launcher.util.Path;
 
 @SuppressWarnings("serial")
 public class VersionPanel extends Panel {
@@ -146,10 +146,10 @@ public class VersionPanel extends Panel {
 		if(profileInput.getText() != null) {
 			ev.setName(profileInput.getText());
 			if(!locationInput.getText().equals("")) {
-				ev.setLocation(new Path(locationInput.getText()));
+				ev.setLocation(Paths.get(locationInput.getText()));
 			} else {
 				// Default Save Location
-				ev.setLocation(new Path());
+				ev.setLocation(Reference.gameDir);
 			}
 			ev.setVersion(selectionInputBox.getSelectedItem().toString());
 		} else {

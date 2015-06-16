@@ -13,78 +13,74 @@
  */
 package com.sww.launcher.events;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.PosixFilePermissions;
+import java.nio.file.attribute.PosixFilePermission;
 import java.util.Iterator;
 import java.util.Scanner;
+import java.util.Set;
 
 import com.sww.launcher.reference.Reference;
-import com.sww.launcher.util.Path;
 import com.sww.launcher.util.Profile;
 
 public class FileEvent {
-	
+
+	private File file;
+	private Path path = Paths.get(Reference.rootDir.toString(), Reference.gameDir.toString());
+	private String userhome = "~/";
+	private Set<PosixFilePermission> perms = PosixFilePermissions.fromString("rwxr-x---");
+
 	/**
 	 * @param file <br>Takes in a File</br>
 	 */
 	public FileEvent(File file) {
 		this.file = file;
 	}
-
-	private File file;
 	
-	public void createFile() {
+	public FileEvent() {}
+
+	public void createFile(File f) {
+		this.file = f;
 		boolean r;
-		if(!Reference.gameDir.exists()) {
+		if(!path.toFile().exists()) {
 			r = false;
 			try {
-				Reference.gameDir.mkdir();
+				Files.createDirectory(path, PosixFilePermissions.asFileAttribute(perms));
 				r = true;
+			} catch (FileAlreadyExistsException e) {
+				e.printStackTrace();
 			} catch (SecurityException e) {
-				System.out.printf("Incorrect Permissionson on %s\n", Reference.gameDir.toString());
+				System.out.printf("Incorrect Permissionson on %s\n", Reference.gameDir);
 				System.out.println(e.getMessage());
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		} else {
 			r = true;
 		}
 		if(r) {
-			if(!file.exists()) {
-				try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))){
+			if(!f.exists()) {
+				try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(f))) {
 		        }
 		        catch(IOException e) {
-		            System.out.printf("Error creating file '%s'\n\n", file);
+		            System.out.printf("Error creating file '%s'\n\n", f);
 		            e.printStackTrace();
 		        }
 			}
 		}
 	}
 
-	private void createFile(File f) {
-		if(!f.exists()) {
-			try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(f))){
-	        }
-	        catch(IOException e) {
-	            System.out.printf("Error creating file '%s'\n\n", f);
-	            e.printStackTrace();
-	        }
-		}
-	}
-	
-	/**
-	 * Adds a new entry to File file
-	 * @param n Profile Name
-	 * @param l Game Files / Save Location
-	 * @param v Game Version
-	 * @param b <code>isProfileActive()</code> Defaults to false <strong>for now</strong>
-	 */
-	public void addLine(String n, String v, Path l) {
+	public void setActiveProfile(int i) {
 		try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true))) {
-			bufferedWriter.write(String.format("%s\t%s\t%s\n", n, v, l.toString()));
+			bufferedWriter.write(String.format("%d\n", i));
         }
         catch(IOException e) {
             System.out.printf("Error writing to file '%s'\n\n", file);
@@ -92,11 +88,26 @@ public class FileEvent {
         }
 	}
 	
+	/**
+	 * Adds a new entry to File file
+	 * @param n Profile Name
+	 * @param l Game Files / Save Location
+	 * @param v Game Version
+	 */
+	public void addLine(String n, String v, Path l) {
+		try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true))) {
+			bufferedWriter.write(String.format("%s\t%s\t%s\n", n, v, l));
+        }
+        catch(IOException e) {
+            System.out.printf("Error writing to file '%s'\n\n", file);
+            e.printStackTrace();
+        }
+	}
 
-	
 	public void editFile() {
 		File tmp = new File(String.format("%s/tmp", Reference.gameDir.toString()));
 		createFile(tmp);
+		setActiveProfile(Reference.ActiveProfile);
 		Iterator<Profile> it = Reference.Profiles.iterator();
 		while(it.hasNext()) {
 			Profile list = it.next();
@@ -114,24 +125,24 @@ public class FileEvent {
 
 	public void readFile() {
 		String line;
-		try (BufferedReader reader = new BufferedReader(new FileReader(file))){
-	        try (Scanner s = new Scanner(Reference.configFile)) {
-	            while(s.hasNextLine()) {
-		            line = reader.readLine();
-	            	String array[] = line.split("\t");
-	            	Profile profile = new Profile(array[0], array[1], new Path(array[2]));
-		            Reference.Profiles.add(profile);
-		            Reference.HashSet0.add(array[0]);
-		            Reference.HashSet1.add(new Path(array[2]));
-		            s.nextLine();
-	        	}
-	            reader.close();
+        try (Scanner s = new Scanner(file)) {
+        	String intt = s.nextLine();
+            Reference.ActiveProfile = Integer.parseInt(intt);
+            while(s.hasNextLine()) {
+	            line = s.nextLine();
+	            System.out.println(line);
+            	String array[] = line.split("\t");
+            	if(array[2].equals(userhome)) {
+            		array[2] = System.getProperty("user.home");
+            	}
+            	Profile profile = new Profile(array[0], array[1], Paths.get(array[2]));
+	            Reference.Profiles.add(profile);
+	            Reference.HashSet0.add(array[0]);
+	            Reference.HashSet1.add(Paths.get(array[2]));
 	        }
 		} catch (FileNotFoundException e) {
             System.out.printf("File '%s' not found\n\n", file);
             e.printStackTrace();
-		} catch(IOException ex) {
-        	ex.printStackTrace();
         }
 	}
 

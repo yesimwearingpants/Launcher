@@ -34,17 +34,18 @@ public class Main {
 	public static void main(String[] args) {
 
 		Reference.addVersion();
-		FileEvent c = new FileEvent(Reference.configFile);
+		FileEvent f = new FileEvent();
 		ProfileEvent p = new ProfileEvent(new Object());
-		c.createFile();
+		f.createFile(Reference.configFile);
+		f.createFile(Reference.logFile);
 		if(Reference.configFile.length() == 0) {
-			c.addLine(p.getName(), p.getVersion(), p.getLocation());
-			c.readFile();
+			f.setActiveProfile(0);
+			f.addLine(p.getName(), p.getVersion(), p.getLocation());
+			f.readFile();
 		} else {
-			c.readFile();
+			f.readFile();
+			Reference.GetActiveProfile();
 		}
-		FileEvent l = new FileEvent(Reference.logFile);;
-		l.createFile();
 		
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
