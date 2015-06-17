@@ -9,6 +9,9 @@
  */
 package com.sww.launcher.gui.elements.login;
 
+import static com.sww.launcher.Main.i18n;
+
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -25,13 +28,11 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JProgressBar;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 
-import org.jdesktop.swingx.JXHyperlink;
-
+import com.sww.launcher.gui.elements.components.Button;
 import com.sww.launcher.gui.elements.components.Combox;
 import com.sww.launcher.gui.elements.components.Panel;
-
-import static com.sww.launcher.Main.i18n;
 
 @SuppressWarnings("serial")
 public class LoginPanel extends Panel {
@@ -56,7 +57,7 @@ public class LoginPanel extends Panel {
         JLabel colonSpaceLabel2 = new JLabel();
         JLabel serverLabel = new JLabel();
         JLabel errorMessageLabel = new JLabel();
-        JXHyperlink forgotPassword = new JXHyperlink();
+        Button forgotPassword = new Button(i18n.lang.getString("forgot"));
         Panel innerPanel = new Panel();
         JPasswordField passwordField = new JPasswordField();
         JButton loginButton = new JButton();
@@ -64,6 +65,7 @@ public class LoginPanel extends Panel {
         Combox<String> serverCombo = new Combox<>(servers);
         JLabel usernameLabel = new JLabel();
         JCheckBox saveCB = new JCheckBox();
+		
         outerPanel.setLayout(new GridBagLayout());
         firstPanel.setLayout(new GridBagLayout());
 
@@ -133,15 +135,14 @@ public class LoginPanel extends Panel {
         gridBagConstraints.insets = new Insets(7, 0, 0, 0);
         firstPanel.add(passwordField, gridBagConstraints);
 
-        forgotPassword.setFont(new Font("Dialog", 1, 10)); // NOI18N
-        forgotPassword.setText(i18n.lang.getString("forgot"));
+        forgotPassword.setFont(new Font("Dialog", 1, 10));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 5;
         gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
         firstPanel.add(forgotPassword, gridBagConstraints);
 
-        saveCB.setFont(new Font("Dialog", 1, 10)); // NOI18N
+        saveCB.setFont(new Font("Dialog", 1, 10));
         saveCB.setText(i18n.lang.getString("saveLogin"));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 6;
@@ -195,7 +196,7 @@ public class LoginPanel extends Panel {
             gridBagConstraints.ipadx = 64;
             gridBagConstraints.ipady = 15;
             gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
-            gridBagConstraints.insets = new Insets(19, 0, 0, 0);
+            gridBagConstraints.insets = new Insets(15, 0, 0, 0);
             secondPanel.add(loginButton, gridBagConstraints);
 
             innerPanel.setMinimumSize(new Dimension(150, 50));
@@ -225,7 +226,7 @@ public class LoginPanel extends Panel {
             gridBagConstraints.ipadx = 64;
             gridBagConstraints.ipady = 15;
             gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
-            gridBagConstraints.insets = new Insets(39, 0, 0, 0);
+            gridBagConstraints.insets = new Insets(35, 0, 0, 0);
             secondPanel.add(loginButton, gridBagConstraints);
 
             innerPanel.setMinimumSize(new Dimension(150, 50));
@@ -273,20 +274,15 @@ public class LoginPanel extends Panel {
 	
 	private Panel createMediaPanel() {
 		
-		JXHyperlink twitter = new JXHyperlink();
-		JXHyperlink reddit = new JXHyperlink();
-		JXHyperlink facebook = new JXHyperlink();
-		JXHyperlink tumblr = new JXHyperlink();
-		JXHyperlink youtube = new JXHyperlink();
-		JXHyperlink othermedia = new JXHyperlink();
+		Button twitter = new Button(new ImageIcon(getClass().getResource("/com/sww/launcher/login/twitter.png")));
+		Button reddit = new Button(new ImageIcon(getClass().getResource("/com/sww/launcher/login/reddit.png")));
+		Button facebook = new Button(new ImageIcon(getClass().getResource("/com/sww/launcher/login/facebook.png")));
+		Button tumblr = new Button(new ImageIcon(getClass().getResource("/com/sww/launcher/login/tumblr.png")));
+		Button youtube = new Button(new ImageIcon(getClass().getResource("/com/sww/launcher/login/youtube.png")));
+		Button othermedia = new Button(null, null);
 
     	Panel panel = new Panel(new GridBagLayout());
 
-        twitter.setIcon(new ImageIcon(getClass().getResource("/com/sww/launcher/login/twitter.png")));
-        reddit.setIcon(new ImageIcon(getClass().getResource("/com/sww/launcher/login/reddit.png")));
-        facebook.setIcon(new ImageIcon(getClass().getResource("/com/sww/launcher/login/facebook.png")));
-        tumblr.setIcon(new ImageIcon(getClass().getResource("/com/sww/launcher/login/tumblr.png")));
-        youtube.setIcon(new ImageIcon(getClass().getResource("/com/sww/launcher/login/youtube.png")));
         othermedia.setIcon(null);//(new ImageIcon(getClass().getResource("/com/sww/launcher/login/sharethis.png")));
 
         twitter.setMinimumSize(new Dimension(twitter.getIcon().getIconWidth(), twitter.getIcon().getIconHeight()));

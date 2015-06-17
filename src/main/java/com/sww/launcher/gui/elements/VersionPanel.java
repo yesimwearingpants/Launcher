@@ -13,7 +13,10 @@
  */
 package com.sww.launcher.gui.elements;
 
+import static com.sww.launcher.Main.i18n;
+
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -28,8 +31,6 @@ import com.sww.launcher.events.ProfileEvent;
 import com.sww.launcher.gui.elements.components.Combox;
 import com.sww.launcher.gui.elements.components.Panel;
 import com.sww.launcher.reference.Reference;
-
-import static com.sww.launcher.Main.i18n;
 
 @SuppressWarnings("serial")
 public class VersionPanel extends Panel {
@@ -97,13 +98,23 @@ public class VersionPanel extends Panel {
         gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
         add(locationInput, gridBagConstraints);
 
+        errorMessage.setFont(new Font("Dialog", 0, 9));
 		gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipadx = 70;
         gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new Insets(6, 80, 6, 0);
         add(errorMessage, gridBagConstraints);
+        
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.ipadx = 7;
+        gridBagConstraints.ipady = 21;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
+        add(new Panel(null), gridBagConstraints);
 
 		gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
