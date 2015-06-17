@@ -133,7 +133,6 @@ public class FileEvent {
             Reference.ActiveProfile = Integer.parseInt(intt);
             while(s.hasNextLine()) {
 	            line = s.nextLine();
-	            System.out.println(line);
             	String array[] = line.split("\t");
             	Profile profile = new Profile(array[0], array[1], Paths.get(array[2]));
 	            Reference.Profiles.add(profile);

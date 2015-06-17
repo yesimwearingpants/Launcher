@@ -33,7 +33,7 @@ public abstract class Reference {
 	/**	Application (Launcher) Title	*/
 	public static final String TITLE = String.format("%s%s", i18n.lang.getString("game"), i18n.lang.getString("launcher"));
 	/**	Application (Launcher) Version	*/	
-	public static final String VERSION = "0.1";
+	public static final String VERSION = "0.2";
 	/**	Game Versions	*/
 	public static List<String> Versions = new ArrayList<>();
 	/**	Line Number of Currently Active Profile	*/
