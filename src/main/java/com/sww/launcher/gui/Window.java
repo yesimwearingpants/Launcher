@@ -13,6 +13,8 @@
  */
 package com.sww.launcher.gui;
 
+import static com.sww.launcher.Main.i18n;
+
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,11 +45,9 @@ import com.sww.launcher.gui.elements.components.Panel;
 import com.sww.launcher.gui.elements.login.LoginPanel;
 import com.sww.launcher.reference.Reference;
 import com.sww.launcher.util.Profile;
-import com.sww.launcher.util.login.Login;
-import com.sww.launcher.util.login.Password;
-import com.sww.launcher.util.login.User;
-
-import static com.sww.launcher.Main.i18n;
+import com.sww.launcher.util.login.LoginService;
+import com.sww.launcher.util.login.PasswordStore;
+import com.sww.launcher.util.login.UserNameStore;
 
 public class Window extends JFrame {
 
@@ -57,12 +57,6 @@ public class Window extends JFrame {
 	private static int x = 720;
 	private static int y = 480;
 
-	@SuppressWarnings("unused")
-	private static final Login login = new Login();
-	@SuppressWarnings("unused")
-	private static final User user = new User();
-	@SuppressWarnings("unused")
-	private static final Password password = new Password();
 	private FileEvent c = new FileEvent(Reference.configFile);
 
 	private static JSeparator separator1 = new JSeparator();
@@ -273,5 +267,64 @@ public class Window extends JFrame {
             .addGap(0, 0, Short.MAX_VALUE))
         );
 	}
+
+	@SuppressWarnings("unused")
+	private static final LoginService login = new LoginService() {
+		@Override
+		public boolean authenticate(String name, char[] password, String server)
+				throws Exception {
+			return false;
+	}	};
+	@SuppressWarnings("unused")
+	private static final UserNameStore user = new UserNameStore() {
+		@Override
+		public String[] getUserNames() {
+			return null;
+		}
+		@Override
+		public void setUserNames(String[] names) {
+			
+		}
+
+		@Override
+		public void loadUserNames() {
+			
+		}
+
+		@Override
+		public void saveUserNames() {
+			
+		}
+
+		@Override
+		public boolean containsUserName(String name) {
+			return false;
+		}
+
+		@Override
+		public void addUserName(String userName) {
+			
+		}
+
+		@Override
+		public void removeUserName(String userName) {
+			
+	}};
+	@SuppressWarnings("unused")
+	private static final PasswordStore password = new PasswordStore() {
+		@Override
+		public boolean set(String username, String server, char[] password) {
+			return false;
+		}
+
+		@Override
+		public char[] get(String username, String server) {
+			return null;
+		}
+
+		@Override
+		public void removeUserPassword(String username) {
+			
+	}	};
 
 }
