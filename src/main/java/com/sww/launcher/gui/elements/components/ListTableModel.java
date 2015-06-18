@@ -22,24 +22,23 @@ import javax.swing.table.AbstractTableModel;
 import com.sww.launcher.util.Profile;
 
 
-@SuppressWarnings({"rawtypes", "unchecked"})
 public class ListTableModel extends AbstractTableModel implements Serializable {
 
 	private static final long serialVersionUID = -484663740833861175L;
 
-    protected List dataVector;
+    protected List<Profile> dataVector;
     protected Object[] columnIdentifiers;
 
 
-    public ListTableModel(List data, Object[] columnNames) {
+    public ListTableModel(List<Profile> data, Object[] columnNames) {
         setData(data, columnNames);
     }
 
-    public List getData() {
+    public List<Profile> getData() {
         return dataVector;
     }
 
-    private static List nonNullList(List list) {
+    private static List<Profile> nonNullList(List<Profile> list) {
         return (list != null) ? list : new ArrayList<>();
     }
     
@@ -50,26 +49,6 @@ public class ListTableModel extends AbstractTableModel implements Serializable {
     public void setData(List<Profile> list, Object[] columnNames) {
         this.dataVector = nonNullList(list);
         this.columnIdentifiers = nonNullArray(columnNames);
-        justifyRows(0, getRowCount());
-        fireTableStructureChanged();
-    }
-
-    private void justifyRows(int from, int to) {
-
-        for (int i = from; i < to; i++) {
-            if (dataVector.get(i) == null) {
-                dataVector.set(i, new ArrayList<>());
-            }
-            dataVector.get(i);
-        }
-    }
-
-    public void setColumnIdentifiers(Object[] columnIdentifiers) {
-        setData(dataVector, columnIdentifiers);
-    }
-
-    public void setColumnCount(int columnCount) {
-        justifyRows(0, getRowCount());
         fireTableStructureChanged();
     }
 
@@ -81,6 +60,14 @@ public class ListTableModel extends AbstractTableModel implements Serializable {
         return columnIdentifiers.length;
     }
 
+    public String getColumnName(int column) {
+        Object id = null;
+        if (column < columnIdentifiers.length && (column >= 0)) {
+            id = columnIdentifiers[column];
+        }
+        return (id == null) ? super.getColumnName(column) : id.toString();
+    }
+
     public boolean isCellEditable(int row, int column) {
         return true;
     }
@@ -88,12 +75,6 @@ public class ListTableModel extends AbstractTableModel implements Serializable {
     public Object getValueAt(int row, int column) {
         Profile rowVector = (Profile) dataVector.get(row);
         return rowVector.get(column);
-    }
-
-    public void setValueAt(Object aValue, int row, int column) {
-        List rowVector = (List)dataVector.get(row);
-        rowVector.set(column, aValue);
-        fireTableCellUpdated(row, column);
     }
 
 }
