@@ -11,7 +11,6 @@ package com.sww.launcher.gui.elements.login;
 
 import static com.sww.launcher.Main.i18n;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -28,7 +27,6 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JProgressBar;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
 
 import com.sww.launcher.gui.elements.components.Button;
 import com.sww.launcher.gui.elements.components.Combox;
@@ -39,17 +37,13 @@ public class LoginPanel extends Panel {
     private Panel loginPanel;
     private boolean isMediaPanel = true;
     private final List<String> servers;
-    
+
     public LoginPanel() {
         this.servers = new ArrayList<>();
         servers.add("https://thisyear.me");
         servers.add("https://github.com");
-    }
-
-	public Panel createPanel() {
         GridBagConstraints gridBagConstraints;
         JTextField usernameField = new JTextField();
-        Panel outerPanel = new Panel();
         Panel firstPanel = new Panel();
         Panel secondPanel = new Panel();
         JLabel colonSpaceLabel0 = new JLabel();
@@ -66,7 +60,7 @@ public class LoginPanel extends Panel {
         JLabel usernameLabel = new JLabel();
         JCheckBox saveCB = new JCheckBox();
 		
-        outerPanel.setLayout(new GridBagLayout());
+        setLayout(new GridBagLayout());
         firstPanel.setLayout(new GridBagLayout());
 
         errorMessageLabel.setFont(new Font("Dialog", 1, 8));
@@ -158,7 +152,7 @@ public class LoginPanel extends Panel {
         gridBagConstraints.gridheight = GridBagConstraints.RELATIVE;
         gridBagConstraints.ipady = 39;
         gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
-        outerPanel.add(firstPanel, gridBagConstraints);
+        add(firstPanel, gridBagConstraints);
 
         secondPanel.setLayout(new GridBagLayout());
 
@@ -215,7 +209,7 @@ public class LoginPanel extends Panel {
             gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
             gridBagConstraints.insets = new Insets(3, 51, 0, 39);
             secondPanel.add(innerPanel, gridBagConstraints);
-            
+
         } else {
             loginButton.setText(i18n.lang.getString("login"));
             loginButton.setPreferredSize(new Dimension(95, 30));
@@ -234,6 +228,8 @@ public class LoginPanel extends Panel {
 
             if(isMediaPanel) {
                 innerPanel.add(createMediaPanel());
+            } else {
+            	innerPanel.add(createProgressPanel());
             }
 
             gridBagConstraints = new GridBagConstraints();
@@ -255,12 +251,12 @@ public class LoginPanel extends Panel {
         gridBagConstraints.gridheight = GridBagConstraints.RELATIVE;
         gridBagConstraints.ipady = 1;
         gridBagConstraints.anchor = GridBagConstraints.NORTHEAST;
-        outerPanel.add(secondPanel, gridBagConstraints);
-        return loginPanel = outerPanel;
+        add(secondPanel, gridBagConstraints);
+        loginPanel = this;
     }
 
 	private Panel createProgressPanel() {
-		
+
             JProgressBar progressBar = new JProgressBar();
             JLabel progressMessageLabel = new JLabel();
             JButton cancelButton = new JButton();
@@ -271,9 +267,9 @@ public class LoginPanel extends Panel {
             panel.add(cancelButton);
             return panel;
 	}
-	
+
 	private Panel createMediaPanel() {
-		
+
 		Button twitter = new Button(new ImageIcon(getClass().getResource("/com/sww/launcher/login/twitter.png")));
 		Button reddit = new Button(new ImageIcon(getClass().getResource("/com/sww/launcher/login/reddit.png")));
 		Button facebook = new Button(new ImageIcon(getClass().getResource("/com/sww/launcher/login/facebook.png")));
@@ -344,13 +340,13 @@ public class LoginPanel extends Panel {
 
         return panel;
 	}
-	
+
     /**
      * Recreates the login panel, and replaces the current one with the new one
      */
     protected void recreateLoginPanel() {
         Panel old = loginPanel;
-        loginPanel = createPanel();
+        loginPanel = new LoginPanel();
         getParent().remove(old);
         getParent().add(loginPanel);
     }

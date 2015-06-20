@@ -63,7 +63,7 @@ public class Window extends JFrame {
 	private static JTabbedPane tab1 = new JTabbedPane();
 	private static JTabbedPane tab2 = new JTabbedPane();
 	private static MainPanel mainPanel = new MainPanel();
-	private static Panel loginPanel = new LoginPanel(/*login, password, user*/).createPanel();
+	private static Panel loginPanel = new LoginPanel(/*login, password, user*/);
 	private static VersionPanel versionPanel = new VersionPanel();
 	private static NewsPanel newsPanel = new NewsPanel();
 	private static TablePanel tablePanel = new TablePanel();
