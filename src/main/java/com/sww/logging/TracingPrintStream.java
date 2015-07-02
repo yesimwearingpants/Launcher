@@ -13,8 +13,6 @@ import java.io.PrintStream;
 
 import org.apache.logging.log4j.Logger;
 
-import com.sww.launcher.gui.elements.components.ConsoleStream;
-
 /**
  * PrintStream which redirects it's output to a given logger.
  * 
@@ -28,11 +26,6 @@ public class TracingPrintStream extends PrintStream {
         super(original);
         this.logger = logger;
     }
-    
-    public TracingPrintStream(Logger logger, ConsoleStream consoleStream) {
-    	super(consoleStream);
-    	this.logger = logger;
-	}
 
 	@Override
     public void println(Object o) {

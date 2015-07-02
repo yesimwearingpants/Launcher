@@ -23,15 +23,15 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
+import com.sww.launcher.lang.I18n;
 import com.sww.launcher.util.ListSet;
 import com.sww.launcher.util.Profile;
 
-import static com.sww.launcher.Main.i18n;
 
 public abstract class Reference {
 
 	/**	Application (Launcher) Title	*/
-	public static final String TITLE = String.format("%s%s", i18n.lang.getString("game"), i18n.lang.getString("launcher"));
+	public static final String TITLE = String.format("%s%s", I18n.getI18ns("game"), I18n.getI18ns("launcher"));
 	/**	Application (Launcher) Version	*/	
 	public static final String VERSION = "0.2";
 	/**	Game Versions	*/

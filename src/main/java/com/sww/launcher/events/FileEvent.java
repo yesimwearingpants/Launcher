@@ -13,8 +13,6 @@
  */
 package com.sww.launcher.events;
 
-import static com.sww.launcher.Main.i18n;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -30,6 +28,7 @@ import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Set;
 
+import com.sww.launcher.lang.I18n;
 import com.sww.launcher.reference.Reference;
 import com.sww.launcher.util.Profile;
 
@@ -61,7 +60,7 @@ public class FileEvent {
 			} catch (FileAlreadyExistsException e) {
 				e.printStackTrace();
 			} catch(SecurityException e) {
-				System.out.printf(i18n.lang.getString("ePermission"), Reference.gameDir.toString());
+				System.out.printf(I18n.getI18ns("ePermission"), Reference.gameDir.toString());
 				System.out.println(e.getMessage());
 			} catch(IOException e) {
 				e.printStackTrace();
@@ -74,7 +73,7 @@ public class FileEvent {
 				try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(f))) {
 		        }
 		        catch(IOException e) {
-		            System.out.printf(i18n.lang.getString("eCreate"), file);
+		            System.out.printf(I18n.getI18ns("eCreate"), file);
 		            e.printStackTrace();
 		        }
 			}
@@ -86,7 +85,7 @@ public class FileEvent {
 			bufferedWriter.write(String.format("%d\n", i));
         }
         catch(IOException e) {
-            System.out.printf(i18n.lang.getString("eWrite"), file);
+            System.out.printf(I18n.getI18ns("eWrite"), file);
             e.printStackTrace();
         }
 	}
@@ -118,7 +117,7 @@ public class FileEvent {
 				bufferedWriter.write(String.format("%s\t%s\t%s\n", list.getName(), list.getVersion(), list.getLocation()));
 	        }
 	        catch(IOException e) {
-	            System.out.printf(i18n.lang.getString("eWrite"), file);
+	            System.out.printf(I18n.getI18ns("eWrite"), file);
 	            e.printStackTrace();
 	        }
 		}
@@ -140,7 +139,7 @@ public class FileEvent {
 	            Reference.HashSet1.add(Paths.get(array[2]));
 	        }
 		} catch(FileNotFoundException e) {
-            System.out.printf(i18n.lang.getString("eNotFound"), file);
+            System.out.printf(I18n.getI18ns("eNotFound"), file);
             e.printStackTrace();
         }
 	}
