@@ -13,6 +13,8 @@
  */
 package com.sww.launcher.events;
 
+import static com.sww.launcher.Main.i18n;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,16 +24,14 @@ import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.attribute.PosixFilePermissions;
 import java.nio.file.attribute.PosixFilePermission;
+import java.nio.file.attribute.PosixFilePermissions;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Set;
 
 import com.sww.launcher.reference.Reference;
 import com.sww.launcher.util.Profile;
-
-import static com.sww.launcher.Main.i18n;
 
 
 public class FileEvent {
@@ -108,7 +108,7 @@ public class FileEvent {
 	}
 
 	public void editFile() {
-		File tmp = new File(String.format("%s/tmp", Reference.gameDir.toString()));
+		File tmp = new File(String.format("%stmp", Reference.rootDir.toString(), Reference.gameDir.toString()));
 		createFile(tmp);
 		setActiveProfile(Reference.ActiveProfile);
 		Iterator<Profile> it = Reference.Profiles.iterator();

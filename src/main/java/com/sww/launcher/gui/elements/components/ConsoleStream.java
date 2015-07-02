@@ -58,7 +58,11 @@ public class ConsoleStream extends OutputStream {
 	}
 
 	static private String bytesToString(byte[] ba, int str, int len) {
-	    try { return new String(ba,str,len,"UTF-8"); } catch(UnsupportedEncodingException thr) { return new String(ba,str,len); } // all JVMs are required to support UTF-8
+	    try {
+	    	return new String(ba,str,len,"UTF-8");
+	    } catch(UnsupportedEncodingException thr) {
+	    	return new String(ba,str,len);
+	    } // all JVMs are required to support UTF-8
 	}
 
     static class Appender implements Runnable {

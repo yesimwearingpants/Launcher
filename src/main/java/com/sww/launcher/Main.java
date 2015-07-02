@@ -39,7 +39,6 @@ public class Main {
 		FileEvent f = new FileEvent();
 		ProfileEvent p = new ProfileEvent(new Object());
 		f.createFile(Reference.configFile);
-		f.createFile(Reference.logFile);
 		if(Reference.configFile.length() == 0) {
 			f.setActiveProfile(0);
 			f.addLine(p.getName(), p.getVersion(), p.getLocation());
@@ -48,7 +47,7 @@ public class Main {
 			f.readFile();
 			Reference.GetActiveProfile();
 		}
-		
+
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {

@@ -148,7 +148,7 @@ public class Window extends JFrame {
 							}
 						}
 						c.editFile();
-						TablePanel.tableChanged();
+						//TablePanel.tableChanged();
 						VersionPanel.getProfileButton().setText(i18n.lang.getString("newProfile"));
 						mainPanel.setLabel(mainPanel.getProfileM(), p.getName());
 						mainPanel.setLabel(mainPanel.getVersionM(), p.getVersion());
@@ -166,7 +166,7 @@ public class Window extends JFrame {
 								e1.printStackTrace();
 							}
 						}
-						TablePanel.tableChanged();
+						//TablePanel.tableChanged();
 				}	}
 		}	});
 		tablePanel.addIListener(new IListener() {
@@ -176,7 +176,7 @@ public class Window extends JFrame {
 					if(((MouseEventExt) e).getButton() == MouseEvent.BUTTON3) {
 						Reference.Profiles.remove(((MouseEventExt) e).getRowInt());
 						c.editFile();
-						TablePanel.tableChanged();
+						//TablePanel.tableChanged();
 					} else {
 						VersionPanel.getProfileButton().setText(i18n.lang.getString("editProfile"));
 						VersionPanel.getProfileInput().setText((String) MouseEventExt.getRowList().getName());
@@ -326,5 +326,9 @@ public class Window extends JFrame {
 		public void removeUserPassword(String username) {
 			
 	}	};
+
+	public static JTabbedPane getTab2() {
+		return tab2;
+	}
 
 }
